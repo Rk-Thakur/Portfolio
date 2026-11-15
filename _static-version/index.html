@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ranjan Kumar Thakur — Software & Mobile Engineer</title>
+  <meta name="description" content="Ranjan Kumar Thakur — Software & Mobile Application Engineer with 3+ years shipping production Flutter apps for iOS and Android, plus Python/FastAPI backends, CI/CD and data pipelines." />
+  <meta name="theme-color" content="#0b0f17" />
+  <meta property="og:title" content="Ranjan Kumar Thakur — Software & Mobile Engineer" />
+  <meta property="og:description" content="Flutter, Dart, Firebase, FastAPI, CI/CD. 3+ years shipping production iOS & Android apps." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%2322d3ee'/><text x='50%25' y='56%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-weight='700' font-size='28' fill='%230b0f17'>RT</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Apply the saved palette before first paint (prevents a color flash)
+    (function () {
+      var light = { paper: 1, sand: 1 }, p;
+      try { p = localStorage.getItem('palette'); } catch (e) {}
+      if (!p) p = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'paper' : 'midnight';
+      document.documentElement.dataset.palette = p;
+      document.documentElement.dataset.theme = light[p] ? 'light' : 'dark';
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <div class="loader" id="loader" aria-hidden="true"><span class="loader__mark">RT</span><span class="loader__bar"><i></i></span></div>
+
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a href="#top" class="brand" aria-label="Home"><span class="brand__mark">RT</span><span class="brand__name">Ranjan Thakur</span></a>
+      <nav aria-label="Primary">
+        <ul class="nav__links" id="navLinks">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#contact" class="nav__cta">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav__actions">
+        <div class="palette">
+          <button class="icon-btn palette__btn" id="paletteBtn" aria-label="Choose color palette" aria-haspopup="true" aria-expanded="false" aria-controls="paletteMenu" title="Color palette">
+            <span class="palette__swatch" aria-hidden="true"></span>
+          </button>
+          <div class="palette__menu" id="paletteMenu" role="menu" aria-label="Color palettes">
+            <p class="palette__title">Palette</p>
+            <button role="menuitemradio" data-palette="midnight" style="--a:#22d3ee;--b:#6366f1;--c:#0b0f17"><i></i><span>Midnight</span><small>Cyan · Indigo</small></button>
+            <button role="menuitemradio" data-palette="paper" style="--a:#ff4d00;--b:#0c0a09;--c:#fafaf9"><i></i><span>Paper</span><small>Ink · Signal orange</small></button>
+            <button role="menuitemradio" data-palette="sand" style="--a:#c2410c;--b:#7c5c3b;--c:#f3ede3"><i></i><span>Sand</span><small>Terracotta · Clay</small></button>
+            <button role="menuitemradio" data-palette="forest" style="--a:#a3e635;--b:#34d399;--c:#0c1210"><i></i><span>Forest</span><small>Lime · Mint</small></button>
+            <button role="menuitemradio" data-palette="dusk" style="--a:#c4b5fd;--b:#f9a8d4;--c:#120f1a"><i></i><span>Dusk</span><small>Lavender · Rose</small></button>
+            <button role="menuitemradio" data-palette="coral" style="--a:#ff7f6b;--b:#ffd166;--c:#0a1a24"><i></i><span>Coral</span><small>Coral · Sun · Deep sea</small></button>
+          </div>
+        </div>
+        <button class="icon-btn menu-btn" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+      <canvas class="hero__particles" id="particles" aria-hidden="true"></canvas>
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow intro" style="--d:0"><span class="dot"></span> Open to Software & Mobile Engineering roles</p>
+          <h1 class="split" aria-label="Hi, I'm Ranjan. I build mobile apps that ship."><span class="line">Hi, I'm Ranjan.</span><span class="line grad">I build mobile apps that ship.</span></h1>
+          <p class="typer intro" style="--d:6"><span class="typer__prompt">~/ranjan $</span> <span id="typed">Flutter &amp; Dart Engineer</span><span class="caret" aria-hidden="true"></span></p>
+          <p class="lead intro" style="--d:7">Software & Mobile Application Engineer with <strong>3+ years</strong> building and releasing production iOS and Android apps in Flutter &amp; Dart, backed by Python/FastAPI services, Firebase, and automated CI/CD. I care about clean architecture, test coverage, and release pipelines that run on their own.</p>
+          <div class="hero__ctas intro" style="--d:8">
+            <a href="#projects" class="btn btn--primary magnetic"><span>View my work</span></a>
+            <a href="#contact" class="btn btn--ghost magnetic"><span>Get in touch</span></a>
+          </div>
+          <ul class="socials intro" style="--d:9" aria-label="Profiles">
+            <li><a href="https://github.com/Rk-Thakur/" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" stroke="none" d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0C17.6 4.8 18.6 5 18.6 5c.7 1.6.3 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg></a></li>
+            <li><a href="https://www.linkedin.com/in/thakurranjan/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" stroke="none" d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2zM7.1 20.5H3.5V9h3.6v11.5zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg></a></li>
+            <li><a href="mailto:ranjant401@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a></li>
+          </ul>
+        </div>
+
+        <div class="hero__visual intro" style="--d:5" aria-hidden="true" id="heroVisual">
+          <div class="orbit orbit--1"><span>Dart</span></div>
+          <div class="orbit orbit--2"><span>Swift</span></div>
+          <div class="orbit orbit--3"><span>Kotlin</span></div>
+          <div class="phone" id="phone">
+            <div class="phone__push"><span class="push__icon">🚀</span><div><b>Release 2.4.1 is live</b><small>App Store · Google Play</small></div></div>
+            <div class="phone__notch"></div>
+            <div class="phone__screen">
+              <div class="app-bar"><span>9:41</span><span class="bars"><i></i><i></i><i></i></span></div>
+              <div class="app-card app-card--balance">
+                <small>Total balance</small>
+                <b>$12,480.20</b>
+                <div class="spark"><span style="--h:40%"></span><span style="--h:65%"></span><span style="--h:50%"></span><span style="--h:80%"></span><span style="--h:60%"></span><span style="--h:92%"></span><span style="--h:74%"></span></div>
+              </div>
+              <div class="app-row"><span class="chip c1"></span><div><b>Transfer sent</b><small>Real-time · REST</small></div><em>-$120</em></div>
+              <div class="app-row"><span class="chip c2"></span><div><b>Sync complete</b><small>SignalR · WebSocket</small></div><em>✓</em></div>
+              <div class="app-row"><span class="chip c3"></span><div><b>Build 2.4.1</b><small>Fastlane · Play & App Store</small></div><em>live</em></div>
+            </div>
+          </div>
+          <div class="float-card fc-1"><span class="mono">flutter test</span><b>80%+ coverage</b></div>
+          <div class="float-card fc-2"><span class="mono">ci/cd</span><b>−70% release effort</b></div>
+        </div>
+      </div>
+
+      <div class="container">
+        <ul class="stats reveal">
+          <li><b data-count="3" data-suffix="+">3+</b><span>Years shipping production apps</span></li>
+          <li><b data-count="40" data-suffix="%">40%</b><span>Faster feature delivery via monorepo</span></li>
+          <li><b data-count="70" data-suffix="%">70%</b><span>Less manual release effort</span></li>
+          <li><b data-count="10" data-suffix="k+">10k+</b><span>Active users on real-time sync</span></li>
+        </ul>
+      </div>
+
+      <div class="marquee" aria-label="Technologies">
+        <div class="marquee__track">
+          <ul>
+            <li>Flutter</li><li>Dart</li><li>Firebase</li><li>Swift</li><li>Kotlin</li><li>BLoC</li><li>Riverpod</li><li>FastAPI</li><li>Python</li><li>Docker</li><li>GitHub Actions</li><li>Fastlane</li><li>GraphQL</li><li>SignalR</li><li>PostgreSQL</li><li>Azure</li><li>AWS</li>
+          </ul>
+          <ul aria-hidden="true">
+            <li>Flutter</li><li>Dart</li><li>Firebase</li><li>Swift</li><li>Kotlin</li><li>BLoC</li><li>Riverpod</li><li>FastAPI</li><li>Python</li><li>Docker</li><li>GitHub Actions</li><li>Fastlane</li><li>GraphQL</li><li>SignalR</li><li>PostgreSQL</li><li>Azure</li><li>AWS</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container about">
+        <div class="section__head reveal">
+          <p class="kicker">01 — About</p>
+          <h2>Engineer across the whole mobile stack</h2>
+        </div>
+        <div class="about__body reveal">
+          <p>I'm a Software & Mobile Application Engineer currently pursuing an <strong>M.S. in Computer Science at Troy University</strong> in Troy, Alabama. Before that I spent three years in Kathmandu, Nepal, growing from intern to <strong>Associate Lead</strong> and shipping Flutter apps for fintech, media, wellness and enterprise clients.</p>
+          <p>My work spans the full lifecycle: architecting multi-app Flutter monorepos, building real-time features with SignalR and WebSockets, writing native bridges in Swift and Kotlin, containerizing Python FastAPI services, and automating releases end to end with Fastlane, GitHub Actions and Firebase App Distribution.</p>
+          <p>I also build data and AI tooling with Python, Pandas, Scikit-learn, XGBoost and BERT, and I publish open-source Dart packages on pub.dev.</p>
+          <div class="about__tags">
+            <span>Clean Architecture</span><span>Automated Testing</span><span>CI/CD</span><span>Accessibility</span><span>Agile</span><span>Open Source</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section section--alt" id="skills">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="kicker">02 — Skills</p>
+          <h2>Tools I work with every day</h2>
+        </div>
+        <div class="skills">
+          <article class="skill-card reveal">
+            <div class="skill-card__icon"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></div>
+            <h3>Mobile</h3>
+            <ul class="pills"><li>Flutter</li><li>Dart</li><li>iOS (Swift)</li><li>Android (Kotlin / Java)</li><li>Platform Channels</li><li>Firebase</li><li>App Store &amp; Google Play</li><li>Accessibility</li></ul>
+          </article>
+          <article class="skill-card reveal">
+            <div class="skill-card__icon"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7"/><circle cx="18" cy="16" r="3"/></svg></div>
+            <h3>State &amp; Architecture</h3>
+            <ul class="pills"><li>BLoC</li><li>Riverpod</li><li>Provider</li><li>Clean Architecture</li><li>Monorepo (Melos)</li><li>OOP</li><li>Agile</li></ul>
+          </article>
+          <article class="skill-card reveal">
+            <div class="skill-card__icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 7h.01M7 17h.01"/></svg></div>
+            <h3>Backend &amp; APIs</h3>
+            <ul class="pills"><li>Python</li><li>FastAPI</li><li>REST</li><li>GraphQL</li><li>WebSockets</li><li>SignalR</li><li>DartFrog</li><li>Serverpod</li></ul>
+          </article>
+          <article class="skill-card reveal">
+            <div class="skill-card__icon"><svg viewBox="0 0 24 24"><path d="M17 8a5 5 0 0 0-9.6-1.5A4 4 0 0 0 7 15h10a3.5 3.5 0 0 0 0-7z"/><path d="M12 15v5M9 18l3 3 3-3"/></svg></div>
+            <h3>Cloud &amp; DevOps</h3>
+            <ul class="pills"><li>Fastlane</li><li>GitHub Actions</li><li>Firebase App Distribution</li><li>Azure DevOps</li><li>Docker</li><li>AWS (EC2, S3, IAM)</li><li>GCP</li></ul>
+          </article>
+          <article class="skill-card reveal">
+            <div class="skill-card__icon"><svg viewBox="0 0 24 24"><path d="M9 11l2 2 4-4"/><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3z"/></svg></div>
+            <h3>Testing &amp; Quality</h3>
+            <ul class="pills"><li>Unit / Widget / Integration</li><li>JUnit &amp; XCTest</li><li>SonarQube</li><li>Crashlytics</li><li>Sentry</li><li>Flutter DevTools</li></ul>
+          </article>
+          <article class="skill-card reveal">
+            <div class="skill-card__icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div>
+            <h3>Data &amp; AI</h3>
+            <ul class="pills"><li>PostgreSQL</li><li>Firestore</li><li>SQL / NoSQL</li><li>ETL</li><li>Pandas</li><li>Scikit-learn</li><li>XGBoost</li><li>TF-IDF / BERT</li></ul>
+          </article>
+        </div>
+        <p class="langs reveal"><span class="mono">languages:</span> Dart · Python · Swift · Kotlin · Java · JavaScript · SQL · C · Bash</p>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="kicker">03 — Experience</p>
+          <h2>Where I've shipped</h2>
+        </div>
+
+        <ol class="timeline">
+          <li class="job reveal">
+            <div class="job__meta">
+              <span class="job__date">Sep 2023 — Dec 2024</span>
+              <span class="job__loc">Kathmandu, Nepal</span>
+            </div>
+            <div class="job__card">
+              <h3>Associate Lead Software Engineer <span class="at">@ Technofex Nepal</span></h3>
+              <p class="job__sub">Lead Flutter Developer · 3 consumer-facing apps</p>
+              <ul>
+                <li>Architected a <strong>multi-app Flutter monorepo</strong> with shared packages, enforced clean architecture and Melos tooling, cutting feature delivery time by <strong>40%</strong> and code duplication by 30%.</li>
+                <li>Built end-to-end <strong>CI/CD pipelines</strong> with Fastlane, GitHub Actions, Azure DevOps and Firebase App Distribution, including automated signing and staged rollouts, removing <strong>70%</strong> of manual release effort.</li>
+                <li>Improved app load times and memory efficiency by <strong>30%+</strong> by profiling with Flutter DevTools and fixing widget rebuild cycles and memory allocations in production.</li>
+                <li>Raised test coverage from near zero to <strong>80%+</strong> across core modules with unit, widget and integration tests, which reduced regressions between releases.</li>
+                <li>Containerized Python FastAPI services with Docker and Docker Compose for Azure, and maintained Python/SQL ETL pipelines for the analytics team.</li>
+              </ul>
+              <ul class="tags"><li>Flutter</li><li>Melos</li><li>Fastlane</li><li>GitHub Actions</li><li>FastAPI</li><li>Docker</li><li>Azure</li></ul>
+            </div>
+          </li>
+
+          <li class="job reveal">
+            <div class="job__meta">
+              <span class="job__date">Aug 2022 — Aug 2023</span>
+              <span class="job__loc">Kathmandu, Nepal</span>
+            </div>
+            <div class="job__card">
+              <h3>Mid-Level Software Engineer <span class="at">@ Cloudyfox Nepal</span></h3>
+              <p class="job__sub">Flutter Developer · 5 enterprise clients</p>
+              <ul>
+                <li>Implemented <strong>SignalR and WebSocket</strong> layers that made real-time data sync more reliable for <strong>10,000+ active users</strong>, with failures tracked in Sentry and Crashlytics.</li>
+                <li>Shipped modular production features with BLoC and OOP across iOS and Android, speeding up feature delivery by <strong>25%</strong>.</li>
+                <li>Set up CI/CD with automated test and debugging gates, which cut build failures by <strong>60%</strong>.</li>
+                <li>Owned the production release process and kept <strong>4.5+ store ratings</strong> on Google Play and the App Store by resolving crash reports and improving accessibility and responsive layouts.</li>
+                <li>Integrated REST, GraphQL and third-party SDKs; wrote Swift platform channels and Kotlin interop where native capabilities were needed.</li>
+              </ul>
+              <ul class="tags"><li>BLoC</li><li>SignalR</li><li>GraphQL</li><li>Swift</li><li>Kotlin</li><li>Sentry</li></ul>
+            </div>
+          </li>
+
+          <li class="job reveal">
+            <div class="job__meta">
+              <span class="job__date">Dec 2021 — May 2022</span>
+              <span class="job__loc">Kathmandu, Nepal</span>
+            </div>
+            <div class="job__card">
+              <h3>Junior Software Engineer <span class="at">@ TechNow</span></h3>
+              <p class="job__sub">Flutter Developer · Intern → Junior</p>
+              <ul>
+                <li>Published <strong>2 production apps</strong> to the App Store and Google Play within a 6-month internship, handling submission, testing and release inside Agile sprints.</li>
+                <li>Built Flutter UI components in Dart and supported Android (Java) development; integrated REST/JSON APIs and wrote tests with JUnit and XCTest.</li>
+              </ul>
+              <ul class="tags"><li>Flutter</li><li>Android (Java)</li><li>Xcode</li><li>REST</li></ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section section--alt" id="projects">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="kicker">04 — Projects</p>
+          <h2>Selected work</h2>
+        </div>
+
+        <div class="filters reveal" role="tablist" aria-label="Filter projects">
+          <button class="filter is-active" data-filter="all" role="tab" aria-selected="true">All</button>
+          <button class="filter" data-filter="mobile" role="tab" aria-selected="false">Mobile</button>
+          <button class="filter" data-filter="backend" role="tab" aria-selected="false">Backend &amp; AI</button>
+          <button class="filter" data-filter="oss" role="tab" aria-selected="false">Open Source</button>
+        </div>
+
+        <div class="projects">
+          <article class="project reveal" data-cat="mobile">
+            <div class="project__top"><span class="project__badge">FinTech</span><span class="project__icon">🏦</span></div>
+            <h3>KiiBank — Mobile Banking</h3>
+            <p>Cross-platform banking app with OAuth2 authentication, real-time transfers over REST, and responsive dashboards. BLoC state management, full unit/widget/integration test suite, and automated releases via Fastlane and Firebase App Distribution.</p>
+            <ul class="tags"><li>Flutter</li><li>BLoC</li><li>OAuth2</li><li>Fastlane</li></ul>
+          </article>
+
+          <article class="project reveal" data-cat="mobile">
+            <div class="project__top"><span class="project__badge">Media</span><span class="project__icon">📰</span></div>
+            <h3>KMAG — Magazine App</h3>
+            <p>Flutter magazine app using Firestore as a CMS, with Riverpod, push notifications and offline reading. GitHub Actions and Fastlane publish builds to Firebase App Distribution, the App Store and Google Play; integration tests check content sync across platforms.</p>
+            <ul class="tags"><li>Flutter</li><li>Riverpod</li><li>Firestore</li><li>GitHub Actions</li></ul>
+          </article>
+
+          <article class="project reveal" data-cat="mobile">
+            <div class="project__top"><span class="project__badge">Wellness</span><span class="project__icon">🎧</span></div>
+            <h3>TrueMe — Meditation &amp; Audio</h3>
+            <p>Audio playback, playlist management and background listening, tuned for low memory use and smooth performance on both iOS and Android.</p>
+            <ul class="tags"><li>Flutter</li><li>Audio</li><li>Performance</li></ul>
+          </article>
+
+          <article class="project reveal" data-cat="backend">
+            <div class="project__top"><span class="project__badge">AI / NLP</span><span class="project__icon">🧠</span></div>
+            <h3>AI Resume Tailoring System</h3>
+            <p>Python FastAPI microservices backed by PostgreSQL that run data-processing pipelines with TF-IDF and BERT to tailor resumes to job descriptions. All services containerized with Docker.</p>
+            <ul class="tags"><li>FastAPI</li><li>PostgreSQL</li><li>BERT</li><li>Docker</li></ul>
+          </article>
+
+          <article class="project reveal" data-cat="backend">
+            <div class="project__top"><span class="project__badge">ML</span><span class="project__icon">🏅</span></div>
+            <h3>Olympic Medal Predictor</h3>
+            <p>End-to-end ETL in Python and Pandas for extraction, cleaning and transformation, a trained machine-learning model, and a Tkinter GUI for making medal predictions.</p>
+            <ul class="tags"><li>Python</li><li>Pandas</li><li>Scikit-learn</li><li>Tkinter</li></ul>
+          </article>
+
+          <article class="project reveal" data-cat="backend">
+            <div class="project__top"><span class="project__badge">Health</span><span class="project__icon">💊</span></div>
+            <h3>Pill Tracking System</h3>
+            <p>REST backend with secure authentication and Dockerized services for tracking medication schedules.</p>
+            <ul class="tags"><li>REST</li><li>Auth</li><li>Docker</li></ul>
+          </article>
+
+          <article class="project reveal" data-cat="oss">
+            <div class="project__top"><span class="project__badge">Open Source</span><span class="project__icon">🧹</span></div>
+            <h3>Remove Print CLI</h3>
+            <p>Dart CLI published on pub.dev that finds and removes debug <code>print</code>/log statements from Flutter codebases before release.</p>
+            <ul class="tags"><li>Dart</li><li>CLI</li><li>pub.dev</li></ul>
+          </article>
+
+          <article class="project reveal" data-cat="oss">
+            <div class="project__top"><span class="project__badge">Tooling</span><span class="project__icon">🧱</span></div>
+            <h3>Flutter Monorepo Setup Script</h3>
+            <p>Bash + Melos script that scaffolds a production-ready Flutter monorepo with shared packages and consistent tooling in one command.</p>
+            <ul class="tags"><li>Bash</li><li>Melos</li><li>Flutter</li></ul>
+          </article>
+        </div>
+
+        <p class="more reveal"><a href="https://github.com/Rk-Thakur/" target="_blank" rel="noopener" class="link-arrow">See more on GitHub</a></p>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="section" id="education">
+      <div class="container">
+        <div class="section__head reveal">
+          <p class="kicker">05 — Education</p>
+          <h2>Education</h2>
+        </div>
+        <div class="edu">
+          <article class="edu__card reveal">
+            <span class="edu__date">Aug 2025 — Present</span>
+            <h3>M.S., Computer Science</h3>
+            <p class="edu__school">Troy University</p>
+            <p class="edu__loc">Troy, Alabama, USA</p>
+          </article>
+          <article class="edu__card reveal">
+            <span class="edu__date">2018 — 2023</span>
+            <h3>B.Sc., Information Management</h3>
+            <p class="edu__school">Orchid International College</p>
+            <p class="edu__loc">Kathmandu, Nepal · GPA 3.54</p>
+          </article>
+          <article class="edu__card reveal">
+            <span class="edu__date">Higher Secondary</span>
+            <h3>Science, Computer Science</h3>
+            <p class="edu__school">Liverpool International College</p>
+            <p class="edu__loc">Kathmandu, Nepal</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section contact" id="contact">
+      <div class="container">
+        <div class="contact__card reveal">
+          <p class="kicker">06 — Contact</p>
+          <h2>Let's build something great together.</h2>
+          <p>I'm open to full-time Software Engineer and Mobile Application Engineer roles. The fastest way to reach me is email.</p>
+          <div class="contact__actions">
+            <a class="btn btn--primary" href="mailto:ranjant401@gmail.com">ranjant401@gmail.com</a>
+            <button class="btn btn--ghost" id="copyEmail" data-email="ranjant401@gmail.com">Copy email</button>
+          </div>
+          <ul class="contact__list">
+            <li><span>Phone</span><a href="tel:+19174987261">+1 (917) 498-7261</a></li>
+            <li><span>Location</span>Troy, Alabama, USA</li>
+            <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/thakurranjan/" target="_blank" rel="noopener">in/thakurranjan</a></li>
+            <li><span>GitHub</span><a href="https://github.com/Rk-Thakur/" target="_blank" rel="noopener">Rk-Thakur</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>© <span id="year">2026</span> Ranjan Kumar Thakur</p>
+      <a href="#top" class="link-arrow up">Back to top</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+  <script src="animations.js"></script>
+</body>
+</html>
