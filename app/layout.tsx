@@ -1,13 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import Providers from '@/components/Providers';
-import Loader from '@/components/Loader';
-import ScrollProgress from '@/components/ScrollProgress';
-import CursorGlow from '@/components/CursorGlow';
-import Nav from '@/components/Nav';
-import Footer from '@/components/Footer';
-import { PortfolioProvider } from '@/components/PortfolioProvider';
-import { getPortfolio } from '@/lib/portfolio';
 import { profile } from '@/lib/data';
 
 export const metadata: Metadata = {
@@ -31,11 +24,8 @@ const paletteScript = `(function(){var light={paper:1,sand:1},p;try{p=localStora
 if(!p)p=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'paper':'midnight';
 var r=document.documentElement;r.dataset.palette=p;r.dataset.theme=light[p]?'light':'dark';})();`;
 
-// Re-check Supabase for new content at most every 5 minutes (ISR)
-export const revalidate = 300;
-
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { source: _source, ...portfolio } = await getPortfolio();
+// Shared shell for the public site and the admin area (see app/(site)/layout.tsx and app/admin/layout.tsx)
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" data-palette="midnight" data-theme="dark" suppressHydrationWarning>
       <head>
@@ -49,17 +39,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body>
-        <Providers>
-          <PortfolioProvider value={portfolio}>
-          <a className="skip" href="#main">Skip to content</a>
-          <Loader />
-          <ScrollProgress />
-          <CursorGlow />
-          <Nav />
-          {children}
-          <Footer />
-          </PortfolioProvider>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

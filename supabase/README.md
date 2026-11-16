@@ -6,6 +6,7 @@ Everything the database needs is in this folder:
 |---|---|
 | `migrations/20261115000001_schema.sql` | Creates the tables (profile, stats, strengths, skills, projects, experience, education, contact messages, admins) |
 | `migrations/20261115000002_security.sql` | Turns on Row Level Security, adds the access rules, and creates `get_portfolio()` |
+| `migrations/20261116000003_harden_privileges.sql` | Removes table permissions visitors don't need (second lock behind RLS) |
 | `seed.sql` | Fills the tables with the content currently on the site (generated — see below) |
 
 ## Access rules
@@ -25,7 +26,8 @@ non-admins change 0 rows, drafts are hidden from visitors, and invalid emails ar
 2. Open **SQL Editor → New query**, paste the contents of each file **in this order**, and click **Run**:
    1. `migrations/20261115000001_schema.sql`
    2. `migrations/20261115000002_security.sql`
-   3. `seed.sql`
+   3. `migrations/20261116000003_harden_privileges.sql`
+   4. `seed.sql`
 3. Check it worked — run:
    ```sql
    select public.get_portfolio();
@@ -43,16 +45,23 @@ npx supabase db push
 ```
 Then run `seed.sql` once in the SQL Editor (or `psql "$DATABASE_URL" -f supabase/seed.sql`).
 
-## Making yourself admin (needed in Stage 5)
+## Admin page (Stage 5) — one-time setup
 
-After you sign in once with Supabase Auth, find your user id under **Authentication → Users**, then run:
-```sql
-insert into public.admins (user_id) values ('YOUR-USER-ID');
-```
+1. **Create your login:** Supabase → **Authentication → Users → Add user → Create new user**.
+   Enter your email and a strong password, and tick **Auto Confirm User**.
+2. **Turn off public sign-ups** (only you should have an account):
+   **Authentication → Sign In / Providers** → turn off **Allow new users to sign up**.
+3. **Sign in** at `/admin/login/` (locally: http://localhost:3000/admin/login/).
+   The first time, you'll see **"Not an admin yet"** with a ready-made SQL line containing your user id.
+4. Run that line in **SQL Editor**, e.g.
+   ```sql
+   insert into public.admins (user_id) values ('YOUR-USER-ID');
+   ```
+5. Reload `/admin/` — you can now edit everything. Saving updates the live site immediately.
 
-## Changing content before Stage 5
+## Other ways to change content
 
-- Edit rows directly in **Table Editor** — the site will read them once Stage 3 is done.
+- Use the admin page at `/admin/` (recommended), or edit rows directly in **Table Editor**.
 - Or edit `lib/data.ts`, run `npm run db:seed-sql`, and re-run `seed.sql`.
   ⚠️ Re-running the seed **replaces** all portfolio content (messages and admins are kept).
 
@@ -62,3 +71,4 @@ insert into public.admins (user_id) values ('YOUR-USER-ID');
 const { data } = await supabase.rpc('get_portfolio'); // same shape as lib/data.ts
 await supabase.from('contact_messages').insert({ name, email, body }); // no .select() — visitors can't read back
 ```
+
