@@ -1,6 +1,17 @@
-// All site content lives here. Edit this file to update the portfolio.
+// Fallback content. The live site reads from Supabase (see lib/portfolio.ts);
+// this file is used when the database is unreachable, and to generate supabase/seed.sql.
+// Text fields may use **bold** markers.
 
-export const profile = {
+export type Profile = {
+  name: string; short: string; initials: string; title: string;
+  email: string; phone: string; phoneHref: string; location: string;
+  github: string; githubHandle: string; linkedin: string; linkedinHandle: string;
+  availability: string; heroHeadline: string; heroTagline: string; heroIntro: string;
+  aboutHeading: string; aboutIntro: string;
+  roles: string[]; aboutTags: string[];
+};
+
+export const profile: Profile = {
   name: 'Ranjan Kumar Thakur',
   short: 'Ranjan Thakur',
   initials: 'RT',
@@ -20,16 +31,33 @@ export const profile = {
     'Release engineer — Fastlane + GitHub Actions',
     'Real-time systems — SignalR · WebSockets',
   ],
+  availability: 'Available for Mobile Engineer · Software Engineer roles',
+  heroHeadline: 'Mobile & Software Engineer.',
+  heroTagline: 'I ship apps people use, and the systems behind them.',
+  heroIntro:
+    'Software & Mobile Engineer with **3+ years** shipping production iOS and Android apps used by **10,000+ people**. ' +
+    "I've led a multi-app Flutter monorepo that made feature delivery **40% faster**, automated releases to cut manual work by **70%**, " +
+    'and built the FastAPI services, real-time sync and data pipelines behind them.',
+  aboutHeading: 'From the first commit to the App Store',
+  aboutIntro:
+    "I'm a **Mobile and Software Engineer** who owns features end to end: architecture, UI, APIs, testing and release. " +
+    'Over three years in Kathmandu I grew from intern to **Associate Lead**, shipping apps for fintech, media, wellness and 5 enterprise clients ' +
+    "while keeping **4.5+ star ratings** on both stores. I'm now completing an **M.S. in Computer Science at Troy University**.",
+  aboutTags: ['Clean Architecture', 'Automated Testing', 'CI/CD', 'Accessibility', 'Agile', 'Open Source'],
 };
 
-export const stats = [
+export type Stat = { value: number; suffix: string; label: string; decimals: number };
+export type Strength = { area: string; text: string };
+export type Education = { date: string; degree: string; school: string; loc: string };
+
+export const stats: Stat[] = [
   { value: 40, suffix: '%', label: 'Faster feature delivery via monorepo', decimals: 0 },
   { value: 70, suffix: '%', label: 'Less manual release effort', decimals: 0 },
   { value: 10, suffix: 'k+', label: 'Active users on real-time sync', decimals: 0 },
   { value: 4.5, suffix: '★', label: 'App Store & Google Play rating', decimals: 1 },
 ];
 
-export const strengths = [
+export const strengths: Strength[] = [
   { area: 'Mobile', text: 'Flutter apps with native Swift and Kotlin bridges, offline support and accessibility built in.' },
   { area: 'Architecture', text: 'Clean architecture and Melos monorepos that let one team ship 3 apps from a shared codebase.' },
   { area: 'Quality', text: 'Test coverage taken from near zero to 80%+, and 30%+ faster load times through profiling.' },
@@ -37,7 +65,7 @@ export const strengths = [
   { area: 'Delivery', text: 'CI/CD with code signing and staged rollouts that cut release effort by 70% and build failures by 60%.' },
 ];
 
-export const marquee = [
+export const marquee: string[] = [
   'Flutter', 'Dart', 'Firebase', 'Swift', 'Kotlin', 'BLoC', 'Riverpod', 'FastAPI', 'Python',
   'Docker', 'GitHub Actions', 'Fastlane', 'GraphQL', 'SignalR', 'PostgreSQL', 'Azure', 'AWS',
 ];
@@ -205,7 +233,7 @@ export const projects: Project[] = [
   },
 ];
 
-export const education = [
+export const education: Education[] = [
   { date: 'Aug 2025 — Present', degree: 'M.S., Computer Science', school: 'Troy University', loc: 'Troy, Alabama, USA' },
   { date: '2018 — 2023', degree: 'B.Sc., Information Management', school: 'Orchid International College', loc: 'Kathmandu, Nepal · GPA 3.54' },
   { date: 'Higher Secondary', degree: 'Science, Computer Science', school: 'Liverpool International College', loc: 'Kathmandu, Nepal' },
@@ -219,3 +247,21 @@ export const palettes = [
   { id: 'dusk', name: 'Dusk', note: 'Lavender · Rose', a: '#c4b5fd', b: '#f9a8d4', c: '#120f1a', light: false },
   { id: 'coral', name: 'Coral', note: 'Coral · Sun · Deep sea', a: '#ff7f6b', b: '#ffd166', c: '#0a1a24', light: false },
 ] as const;
+
+// ---------------------------------------------------------------------------
+// The whole site in one object (same shape as Supabase get_portfolio())
+// ---------------------------------------------------------------------------
+export type Portfolio = {
+  profile: Profile;
+  stats: Stat[];
+  strengths: Strength[];
+  marquee: string[];
+  skills: SkillGroup[];
+  experience: Job[];
+  projects: Project[];
+  education: Education[];
+};
+
+export const staticPortfolio: Portfolio = {
+  profile, stats, strengths, marquee, skills, experience, projects, education,
+};

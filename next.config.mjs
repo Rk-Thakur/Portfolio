@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Static HTML export: `npm run build` writes a deployable site to /out
-  output: 'export',
+  // Pages are pre-rendered and refreshed from Supabase every 5 minutes (ISR),
+  // so this needs a Next.js host such as Vercel (no longer a plain static export).
   trailingSlash: true,
   images: { unoptimized: true },
-  // If you host at https://<user>.github.io/<repo>/, set basePath: '/<repo>'
+  // Dev server log shows each Supabase request and whether it hit the cache
+  logging: { fetches: { fullUrl: false } },
 };
 export default nextConfig;

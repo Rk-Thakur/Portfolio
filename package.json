@@ -5,13 +5,16 @@
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
-    "start": "npx serve out -l 3000"
+    "start": "npx serve out -l 3000",
+    "db:seed-sql": "node scripts/generate-seed.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
     "framer-motion": "^12.23.0",
     "next": "^15.5.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

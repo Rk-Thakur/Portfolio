@@ -8,15 +8,16 @@ import Marquee from './Marquee';
 import Magnetic from './Magnetic';
 import { Reveal } from './Reveal';
 import { GitHubIcon, LinkedInIcon, MailIcon } from './Icons';
-import { marquee, profile, stats } from '@/lib/data';
+import { usePortfolio } from './PortfolioProvider';
+import Rich from './Rich';
 import { ease, intro, LOADER_MS } from '@/lib/motion';
 
-const lines = [
-  { text: 'Mobile & Software Engineer.', grad: false },
-  { text: 'I ship apps people use, and the systems behind them.', grad: true },
-];
-
 export default function Hero() {
+  const { profile, stats, marquee } = usePortfolio();
+  const lines = [
+    { text: profile.heroHeadline, grad: false },
+    { text: profile.heroTagline, grad: true },
+  ];
   const base = useRef(intro.played ? 0.05 : LOADER_MS / 1000 + 0.15).current;
   useEffect(() => { intro.played = true; }, []);
 
@@ -47,7 +48,7 @@ export default function Hero() {
       <Particles />
       <div className="container hero__grid">
         <motion.div className="hero__copy" style={{ y: copyY, opacity: copyOpacity }}>
-          <motion.p className="eyebrow" {...intro_(0)}><span className="dot" /> Available for Mobile Engineer · Software Engineer roles</motion.p>
+          <motion.p className="eyebrow" {...intro_(0)}><span className="dot" /> {profile.availability}</motion.p>
           <motion.p className="hero__hello" {...intro_(1)}>Hi, I&apos;m <strong>{profile.name}</strong> 👋</motion.p>
           <h1 className="hl" aria-label={lines.map((l) => l.text).join(' ')}>
             {lines.map((line) => (
@@ -74,10 +75,7 @@ export default function Hero() {
             <span className="caret" aria-hidden="true" />
           </motion.p>
           <motion.p className="lead" {...intro_(7)}>
-            Software &amp; Mobile Engineer with <strong>3+ years</strong> shipping production iOS and Android apps used by{' '}
-            <strong>10,000+ people</strong>. I&apos;ve led a multi-app Flutter monorepo that made feature delivery{' '}
-            <strong>40% faster</strong>, automated releases to cut manual work by <strong>70%</strong>, and built the FastAPI
-            services, real-time sync and data pipelines behind them.
+            <Rich text={profile.heroIntro} />
           </motion.p>
           <motion.div className="hero__ctas" {...intro_(8)}>
             <Magnetic href="#projects" className="btn btn--primary"><span>View my work</span></Magnetic>

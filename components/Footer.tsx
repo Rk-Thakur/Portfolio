@@ -1,6 +1,8 @@
-import { profile } from '@/lib/data';
+'use client';
+import { usePortfolio } from './PortfolioProvider';
 
 export default function Footer() {
+  const { profile } = usePortfolio();
   return (
     <footer className="footer">
       <div className="container footer__inner">

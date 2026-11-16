@@ -1,24 +1,42 @@
 # Ranjan Kumar Thakur — Portfolio
 
-Next.js (App Router) + Framer Motion, exported as a static site.
+Next.js (App Router) + Framer Motion, with content stored in **Supabase**.
+
+## How content flows
+
+```
+Supabase (tables + RLS)  ──get_portfolio()──►  lib/portfolio.ts  ──►  PortfolioProvider  ──►  components
+                                                     │
+                                       unreachable?  └──► falls back to lib/data.ts
+```
+
+- Pages are pre-rendered and **refreshed from Supabase at most every 5 minutes** (ISR).
+- If Supabase is paused or unreachable, the site uses `lib/data.ts`, so it never breaks.
 
 ## Commands
 
 ```bash
-npm install      # first time only
-npm run dev      # live preview at http://localhost:3000
-npm run build    # writes the deployable static site to ./out
+npm install          # first time only
+npm run dev          # live preview at http://localhost:3000
+npm run build        # production build (needs a Next.js host, e.g. Vercel)
+npm run db:seed-sql  # regenerate supabase/seed.sql from lib/data.ts
 ```
+
+## Environment
+
+Copy `.env.example` to `.env.local` and fill in your Supabase Project URL and
+anon/publishable key. Never commit `.env.local`. See `supabase/README.md`.
 
 ## Editing content
 
-All text (profile, skills, experience, projects, education, palettes) lives in `lib/data.ts`.
-Adding a project there automatically creates its card and its `/projects/<slug>/` page.
+- **Day to day:** edit rows in Supabase → Table Editor. The live site updates within 5 minutes.
+- **Fallback copy:** `lib/data.ts` (used only when Supabase is unreachable).
 
-## Deploying
+## Deploying (Vercel)
 
-Upload the `out/` folder to any static host (Netlify, Vercel, Cloudflare Pages, GitHub Pages).
-For GitHub Pages under `https://<user>.github.io/<repo>/`, set `basePath: '/<repo>'` in `next.config.mjs`.
+1. Push this folder to GitHub and import it in Vercel.
+2. In Vercel → Settings → Environment Variables, add `NEXT_PUBLIC_SUPABASE_URL` and
+   `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+3. Deploy. (This is no longer a static export, so plain static hosts won't work.)
 
-The previous plain-HTML version is kept in `_static-version/`.
-# Portfolio
+The original plain-HTML version is kept in `_static-version/`.

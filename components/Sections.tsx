@@ -1,31 +1,23 @@
 'use client';
 import Link from 'next/link';
 import { AnimatePresence, LayoutGroup, motion, useScroll, useSpring } from 'framer-motion';
-import { Fragment, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import SectionHead from './SectionHead';
 import Magnetic from './Magnetic';
 import { Reveal, TiltCard } from './Reveal';
 import SkillCard from './SkillCard';
-import { education, experience, profile, projects, skills, strengths, type ProjectCat } from '@/lib/data';
-
-/** Renders **bold** segments from data strings. */
-export function Rich({ text }: { text: string }) {
-  return (
-    <>
-      {text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
-        part.startsWith('**') ? <strong key={i}>{part.slice(2, -2)}</strong> : <Fragment key={i}>{part}</Fragment>
-      )}
-    </>
-  );
-}
+import type { ProjectCat } from '@/lib/data';
+import { usePortfolio } from './PortfolioProvider';
+import Rich from './Rich';
 
 export function About() {
+  const { profile, strengths } = usePortfolio();
   return (
     <section className="section" id="about">
       <div className="container about">
-        <SectionHead kicker="01 — About" title="From the first commit to the App Store" />
+        <SectionHead kicker="01 — About" title={profile.aboutHeading} />
         <Reveal className="about__body">
-          <p>I&apos;m a <strong>Mobile and Software Engineer</strong> who owns features end to end: architecture, UI, APIs, testing and release. Over three years in Kathmandu I grew from intern to <strong>Associate Lead</strong>, shipping apps for fintech, media, wellness and 5 enterprise clients while keeping <strong>4.5+ star ratings</strong> on both stores. I&apos;m now completing an <strong>M.S. in Computer Science at Troy University</strong>.</p>
+          <p><Rich text={profile.aboutIntro} /></p>
           <p className="about__sub">What I bring</p>
           <ul className="strengths">
             {strengths.map((s, i) => (
@@ -36,7 +28,7 @@ export function About() {
             ))}
           </ul>
           <div className="about__tags">
-            {['Clean Architecture', 'Automated Testing', 'CI/CD', 'Accessibility', 'Agile', 'Open Source'].map((t, i) => (
+            {profile.aboutTags.map((t, i) => (
               <span key={t} style={{ '--i': i } as React.CSSProperties}>{t}</span>
             ))}
           </div>
@@ -47,6 +39,7 @@ export function About() {
 }
 
 export function Skills() {
+  const { skills } = usePortfolio();
   return (
     <section className="section section--alt" id="skills">
       <div className="container">
@@ -65,6 +58,7 @@ export function Skills() {
 }
 
 export function Experience() {
+  const { experience, projects } = usePortfolio();
   const wrapRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: wrapRef, offset: ['start 75%', 'end 60%'] });
   const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 25 });
@@ -120,6 +114,7 @@ const filters: { id: 'all' | ProjectCat; label: string }[] = [
 ];
 
 export function Projects() {
+  const { projects, profile } = usePortfolio();
   const [filter, setFilter] = useState<'all' | ProjectCat>('all');
   const shown = projects.filter((p) => filter === 'all' || p.cat === filter);
   return (
@@ -163,6 +158,7 @@ export function Projects() {
 }
 
 export function Education() {
+  const { education } = usePortfolio();
   return (
     <section className="section" id="education">
       <div className="container">
@@ -183,6 +179,7 @@ export function Education() {
 }
 
 export function Contact() {
+  const { profile } = usePortfolio();
   const [toast, setToast] = useState<string | null>(null);
   const copy = async () => {
     try { await navigator.clipboard.writeText(profile.email); setToast('Email copied'); }

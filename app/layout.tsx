@@ -6,6 +6,8 @@ import ScrollProgress from '@/components/ScrollProgress';
 import CursorGlow from '@/components/CursorGlow';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
+import { PortfolioProvider } from '@/components/PortfolioProvider';
+import { getPortfolio } from '@/lib/portfolio';
 import { profile } from '@/lib/data';
 
 export const metadata: Metadata = {
@@ -29,7 +31,11 @@ const paletteScript = `(function(){var light={paper:1,sand:1},p;try{p=localStora
 if(!p)p=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'paper':'midnight';
 var r=document.documentElement;r.dataset.palette=p;r.dataset.theme=light[p]?'light':'dark';})();`;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+// Re-check Supabase for new content at most every 5 minutes (ISR)
+export const revalidate = 300;
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { source: _source, ...portfolio } = await getPortfolio();
   return (
     <html lang="en" data-palette="midnight" data-theme="dark" suppressHydrationWarning>
       <head>
@@ -44,6 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <Providers>
+          <PortfolioProvider value={portfolio}>
           <a className="skip" href="#main">Skip to content</a>
           <Loader />
           <ScrollProgress />
@@ -51,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Nav />
           {children}
           <Footer />
+          </PortfolioProvider>
         </Providers>
       </body>
     </html>

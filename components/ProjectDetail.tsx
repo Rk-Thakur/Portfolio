@@ -4,12 +4,13 @@ import { motion } from 'framer-motion';
 import { Reveal, TiltCard } from './Reveal';
 import Magnetic from './Magnetic';
 import type { Project } from '@/lib/data';
-import { profile } from '@/lib/data';
+import { usePortfolio } from './PortfolioProvider';
 import { ease } from '@/lib/motion';
 
 const catLabel = { mobile: 'Mobile app', backend: 'Backend & AI', oss: 'Open source' } as const;
 
 export default function ProjectDetail({ project: p, next, index, total }: { project: Project; next: Project; index: number; total: number }) {
+  const { profile } = usePortfolio();
   const words = p.title.split(' ');
   return (
     <main id="main" className="case">

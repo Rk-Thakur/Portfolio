@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import PalettePicker from './PalettePicker';
 import Scramble from './Scramble';
-import { profile } from '@/lib/data';
+import { usePortfolio } from './PortfolioProvider';
 
 const links = [
   { id: 'about', label: 'About' },
@@ -16,6 +16,7 @@ const links = [
 ];
 
 export default function Nav() {
+  const { profile } = usePortfolio();
   const pathname = usePathname();
   const isHome = pathname === '/';
   const [scrolled, setScrolled] = useState(false);
