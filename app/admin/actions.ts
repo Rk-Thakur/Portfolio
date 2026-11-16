@@ -80,7 +80,7 @@ function parse(fields: Field[], formData: FormData) {
         if (f.required && !s) { errors[f.key] = 'Required.'; break; }
         if (f.type === 'slug' && s && !SLUG_RE.test(s)) { errors[f.key] = 'Use lowercase letters, numbers and dashes (e.g. my-app).'; break; }
         if (f.type === 'select' && s && f.options && !f.options.some((o) => o.value === s)) { errors[f.key] = 'Pick an option.'; break; }
-        row[f.key] = s || (f.required ? s : null);
+        row[f.key] = s; // empty optional text is saved as '' (some columns don't allow NULL)
       }
     }
   }

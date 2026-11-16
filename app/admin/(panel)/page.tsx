@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { createUserClient } from '@/lib/supabase/server';
-import { SECTIONS, SECTION_KEYS } from '@/lib/admin/config';
+import { SECTIONS, SECTION_KEYS, plural } from '@/lib/admin/config';
 
 export default async function Dashboard() {
   const supabase = await createUserClient();
@@ -34,7 +34,7 @@ export default async function Dashboard() {
           <Link key={k} href={`/admin/${k}/`} className="adm-card">
             <span className="adm-card__label">{SECTIONS[k].label}</span>
             <strong>{n}</strong>
-            <span className="adm-muted adm-small">{k === 'projects' && drafts ? `${drafts} draft${drafts > 1 ? 's' : ''}` : `${SECTIONS[k].singular}${n === 1 ? '' : 's'}`}</span>
+            <span className="adm-muted adm-small">{k === 'projects' && drafts ? `${drafts} draft${drafts > 1 ? 's' : ''}` : plural(SECTIONS[k].singular, n)}</span>
           </Link>
         ))}
       </div>

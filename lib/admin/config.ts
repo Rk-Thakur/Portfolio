@@ -31,6 +31,13 @@ export type Section = {
 
 export type SectionKey = 'projects' | 'experience' | 'skills' | 'education' | 'stats' | 'strengths';
 
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+/** "2025-01-01" → "Jan 2025" */
+const monthYear = (d: unknown) => {
+  const m = /^(\d{4})-(\d{2})/.exec(String(d ?? ''));
+  return m ? `${MONTHS[Number(m[2]) - 1]} ${m[1]}` : '';
+};
+
 const BOLD_HELP = 'Wrap words in **double asterisks** to make them bold.';
 
 export const SECTIONS: Record<SectionKey, Section> = {
@@ -52,7 +59,7 @@ export const SECTIONS: Record<SectionKey, Section> = {
   },
   experience: {
     key: 'experience', table: 'experiences', label: 'Experience', singular: 'experience entry', titleField: 'role',
-    subtitle: (r) => `${r.company ?? ''} · ${r.start_date ?? ''} → ${r.end_date ?? 'Present'}`,
+    subtitle: (r) => `${r.company ?? ''} · ${monthYear(r.start_date)} — ${r.end_date ? monthYear(r.end_date) : 'Present'}`,
     fields: [
       { key: 'role', label: 'Role', type: 'text', required: true },
       { key: 'company', label: 'Company', type: 'text', required: true },
@@ -105,6 +112,10 @@ export const SECTIONS: Record<SectionKey, Section> = {
     ],
   },
 };
+
+/** "entry" → "entries", "stat" → "stats" */
+export const plural = (word: string, n: number) =>
+  n === 1 ? word : word.endsWith('y') ? `${word.slice(0, -1)}ies` : `${word}s`;
 
 export const SECTION_KEYS = Object.keys(SECTIONS) as SectionKey[];
 export const isSectionKey = (k: string): k is SectionKey => (SECTION_KEYS as string[]).includes(k);

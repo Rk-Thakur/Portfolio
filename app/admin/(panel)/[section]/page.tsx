@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createUserClient } from '@/lib/supabase/server';
-import { SECTIONS, isSectionKey } from '@/lib/admin/config';
+import { SECTIONS, isSectionKey, plural } from '@/lib/admin/config';
 import { deleteRecord, moveRecord, togglePublished } from '../../actions';
 import ConfirmButton from '@/components/admin/ConfirmButton';
 
@@ -25,7 +25,7 @@ export default async function SectionList({
       <header className="adm-head">
         <div>
           <h1>{section.label}</h1>
-          <p className="adm-muted">{list.length} {section.singular}{list.length === 1 ? '' : 's'} · use ↑ ↓ to change the order on the site.</p>
+          <p className="adm-muted">{list.length} {plural(section.singular, list.length)} · use ↑ ↓ to change the order on the site.</p>
         </div>
         <Link href={`/admin/${key}/new/`} className="adm-btn adm-btn--primary">+ Add {section.singular}</Link>
       </header>
