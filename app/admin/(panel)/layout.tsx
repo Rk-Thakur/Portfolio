@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { getAdmin } from '@/lib/supabase/server';
+import { getAdmin, supabaseConfigured } from '@/lib/supabase/server';
+import SetupNotice from '@/components/admin/SetupNotice';
 import { SECTIONS, SECTION_KEYS } from '@/lib/admin/config';
 import { signOut } from '../actions';
 import AdminNav from '@/components/admin/AdminNav';
@@ -8,6 +9,7 @@ import AdminNav from '@/components/admin/AdminNav';
 export const dynamic = 'force-dynamic';
 
 export default async function PanelLayout({ children }: { children: React.ReactNode }) {
+  if (!supabaseConfigured) return <SetupNotice />;
   const { user, isAdmin } = await getAdmin();
   if (!user) redirect('/admin/login/');
 

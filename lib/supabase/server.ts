@@ -2,11 +2,15 @@ import 'server-only';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';
 
+/** False when the Supabase URL/key env vars are missing (e.g. not set in Vercel). */
+export const supabaseConfigured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+
 /**
  * Supabase client that acts as the logged-in user (session stored in cookies).
  * Every query runs under RLS as that user, so only admins can write.
  */
 export async function createUserClient() {
+  if (!supabaseConfigured) throw new Error('Supabase is not configured: set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.');
   const cookieStore = await cookies();
   return createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
     cookies: {

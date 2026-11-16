@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import { createUserClient } from '@/lib/supabase/server';
+import { createUserClient, supabaseConfigured } from '@/lib/supabase/server';
 import { SECTIONS, SECTION_KEYS, plural } from '@/lib/admin/config';
 
 export default async function Dashboard() {
+  if (!supabaseConfigured) return null; // layout shows the setup notice
   const supabase = await createUserClient();
   const counts = await Promise.all(
     SECTION_KEYS.map(async (k) => {

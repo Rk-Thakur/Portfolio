@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { createUserClient } from '@/lib/supabase/server';
+import { createUserClient, supabaseConfigured } from '@/lib/supabase/server';
 import { SECTIONS, isSectionKey, plural } from '@/lib/admin/config';
 import { deleteRecord, moveRecord, togglePublished } from '../../actions';
 import ConfirmButton from '@/components/admin/ConfirmButton';
@@ -8,6 +8,7 @@ import ConfirmButton from '@/components/admin/ConfirmButton';
 export default async function SectionList({
   params, searchParams,
 }: { params: Promise<{ section: string }>; searchParams: Promise<{ saved?: string; deleted?: string }> }) {
+  if (!supabaseConfigured) return null; // layout shows the setup notice
   const { section: key } = await params;
   const sp = await searchParams;
   if (!isSectionKey(key)) notFound();

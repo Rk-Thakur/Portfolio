@@ -1,6 +1,9 @@
 import LoginForm from '@/components/admin/LoginForm';
+import SetupNotice from '@/components/admin/SetupNotice';
+import { supabaseConfigured } from '@/lib/supabase/server';
 
 export default function LoginPage() {
+  if (!supabaseConfigured) return <SetupNotice />;
   return (
     <main className="adm-login">
       <div className="adm-login__card">

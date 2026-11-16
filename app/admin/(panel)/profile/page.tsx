@@ -1,9 +1,10 @@
-import { createUserClient } from '@/lib/supabase/server';
+import { createUserClient, supabaseConfigured } from '@/lib/supabase/server';
 import { PROFILE_FIELDS } from '@/lib/admin/config';
 import RecordForm from '@/components/admin/RecordForm';
 import { saveProfile } from '../../actions';
 
 export default async function ProfilePage() {
+  if (!supabaseConfigured) return null; // layout shows the setup notice
   const supabase = await createUserClient();
   const { data } = await supabase.from('profile').select('*').eq('id', 1).single();
   return (

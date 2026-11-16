@@ -1,7 +1,7 @@
 'use server';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { createUserClient, getAdmin } from '@/lib/supabase/server';
+import { createUserClient, getAdmin, supabaseConfigured } from '@/lib/supabase/server';
 import { PROFILE_FIELDS, SECTIONS, isSectionKey, type Field, type FormState } from '@/lib/admin/config';
 
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
@@ -13,6 +13,7 @@ const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 export async function signIn(_prev: FormState, formData: FormData): Promise<FormState> {
   const email = String(formData.get('email') ?? '').trim();
   const password = String(formData.get('password') ?? '');
+  if (!supabaseConfigured) return { ok: false, message: 'Supabase keys are missing on this deployment.' };
   if (!email || !password) return { ok: false, message: 'Enter your email and password.' };
 
   const supabase = await createUserClient();

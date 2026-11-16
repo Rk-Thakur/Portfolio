@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { createUserClient } from '@/lib/supabase/server';
+import { createUserClient, supabaseConfigured } from '@/lib/supabase/server';
 import { SECTIONS, isSectionKey } from '@/lib/admin/config';
 import RecordForm from '@/components/admin/RecordForm';
 import ConfirmButton from '@/components/admin/ConfirmButton';
 import { deleteRecord, saveRecord } from '../../../actions';
 
 export default async function EditRecord({ params }: { params: Promise<{ section: string; id: string }> }) {
+  if (!supabaseConfigured) return null; // layout shows the setup notice
   const { section: key, id } = await params;
   if (!isSectionKey(key)) notFound();
   const section = SECTIONS[key];
