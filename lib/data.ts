@@ -153,6 +153,8 @@ export type ProjectCat = 'mobile' | 'backend' | 'oss';
 export type Project = {
   slug: string; title: string; badge: string; icon: string; cat: ProjectCat;
   summary: string; highlights: string[]; tags: string[];
+  /** Optional store links (https://apps.apple.com/…, https://play.google.com/…) */
+  appStore?: string | null; playStore?: string | null;
 };
 
 export const projects: Project[] = [

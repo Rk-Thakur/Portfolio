@@ -76,6 +76,16 @@ function parse(fields: Field[], formData: FormData) {
         row[f.key] = s;
         break;
       }
+      case 'url': {
+        const s = String(raw ?? '').trim();
+        if (!s) { row[f.key] = null; break; }
+        let u: URL | null = null;
+        try { u = new URL(s); } catch { /* invalid */ }
+        if (!u || u.protocol !== 'https:') { errors[f.key] = 'Enter a full link starting with https://'; break; }
+        if (f.hosts && !f.hosts.includes(u.hostname)) { errors[f.key] = `This should be a ${f.hosts[0]} link.`; break; }
+        row[f.key] = u.toString();
+        break;
+      }
       default: {
         const s = String(raw ?? '').trim();
         if (f.required && !s) { errors[f.key] = 'Required.'; break; }

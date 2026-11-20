@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Reveal, TiltCard } from './Reveal';
 import Magnetic from './Magnetic';
+import StoreButtons from './StoreButtons';
 import type { Project } from '@/lib/data';
 import { usePortfolio } from './PortfolioProvider';
 import { ease } from '@/lib/motion';
@@ -49,6 +50,7 @@ export default function ProjectDetail({ project: p, next, index, total }: { proj
               <motion.li key={t} variants={{ hidden: { opacity: 0, y: 10, scale: 0.8 }, show: { opacity: 1, y: 0, scale: 1 } }}>{t}</motion.li>
             ))}
           </motion.ul>
+          <StoreButtons appStore={p.appStore} playStore={p.playStore} appName={p.title.split(' — ')[0]} delay={0.8} />
         </header>
 
         <section className="case__body">

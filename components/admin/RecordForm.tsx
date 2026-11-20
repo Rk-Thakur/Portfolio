@@ -44,6 +44,9 @@ export default function RecordForm({ fields, values, action, submitLabel, projec
       case 'number':
         control = <input {...common} type="number" step={f.step ?? 'any'} defaultValue={v === null || v === undefined ? '' : String(v)} required={f.required} />;
         break;
+      case 'url':
+        control = <input {...common} type="url" inputMode="url" defaultValue={String(v ?? '')} placeholder={f.placeholder} spellCheck={false} />;
+        break;
       case 'date':
         control = <input {...common} type="date" defaultValue={v ? String(v).slice(0, 10) : ''} required={f.required} />;
         break;

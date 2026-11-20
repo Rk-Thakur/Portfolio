@@ -70,9 +70,9 @@ where g.title = ${q(g.title)};`);
 }
 out.push('');
 
-out.push('insert into public.projects (slug, title, badge, icon, category, summary, highlights, tags, position) values');
+out.push('insert into public.projects (slug, title, badge, icon, category, summary, highlights, tags, app_store_url, play_store_url, position) values');
 out.push(projects.map((pr, i) =>
-  `  (${q(pr.slug)}, ${q(pr.title)}, ${q(pr.badge)}, ${q(pr.icon)}, ${q(pr.cat)}, ${q(pr.summary)},\n   ${arr(pr.highlights)},\n   ${arr(pr.tags)}, ${i})`
+  `  (${q(pr.slug)}, ${q(pr.title)}, ${q(pr.badge)}, ${q(pr.icon)}, ${q(pr.cat)}, ${q(pr.summary)},\n   ${arr(pr.highlights)},\n   ${arr(pr.tags)}, ${q(pr.appStore)}, ${q(pr.playStore)}, ${i})`
 ).join(',\n') + ';\n');
 
 out.push('insert into public.experiences (role, company, subtitle, start_date, end_date, location, points, tags, independent, position) values');

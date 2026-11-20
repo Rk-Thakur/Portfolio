@@ -3,6 +3,7 @@
 
 export type FieldType =
   | 'text' | 'textarea' | 'lines' | 'number' | 'date' | 'bool' | 'select' | 'slug'
+  | 'url'        // optional https link; `hosts` limits which sites are accepted
   | 'skills'     // skill_groups: one skill per line, stored in the skills table
   | 'projects';  // experiences: checkboxes of linked case studies
 
@@ -16,6 +17,7 @@ export type Field = {
   placeholder?: string;
   wide?: boolean;       // span the full form width
   step?: string;        // number inputs
+  hosts?: string[];     // url inputs: allowed hostnames
 };
 
 export type Section = {
@@ -55,6 +57,10 @@ export const SECTIONS: Record<SectionKey, Section> = {
       { key: 'summary', label: 'Summary (card text)', type: 'textarea', required: true, wide: true },
       { key: 'highlights', label: 'Highlights (case-study page)', type: 'lines', wide: true, help: 'One per line.' },
       { key: 'tags', label: 'Tags', type: 'lines', wide: true, help: 'One per line.' },
+      { key: 'app_store_url', label: 'App Store link', type: 'url', hosts: ['apps.apple.com', 'testflight.apple.com'],
+        placeholder: 'https://apps.apple.com/app/…', help: 'Optional. Shows an App Store button on the project page.' },
+      { key: 'play_store_url', label: 'Google Play link', type: 'url', hosts: ['play.google.com'],
+        placeholder: 'https://play.google.com/store/apps/details?id=…', help: 'Optional. Shows a Google Play button on the project page.' },
     ],
   },
   experience: {

@@ -967,3 +967,19 @@ body::after {
   transition: border-color .2s, color .2s, transform .2s;
 }
 .job__project:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+/* ===== App Store / Google Play buttons (project pages) ===== */
+.store-btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.store-btn {
+  display: inline-flex; align-items: center; gap: 10px; min-width: 168px; height: 52px; padding: 0 18px 0 14px;
+  border-radius: 12px; background: #000; color: #fff; border: 1px solid rgba(255, 255, 255, .18);
+  box-shadow: 0 10px 24px -16px rgba(0, 0, 0, .6); text-decoration: none;
+  transition: box-shadow .25s, border-color .25s;
+}
+.store-btn:hover { box-shadow: 0 16px 30px -16px rgba(0, 0, 0, .7); border-color: color-mix(in srgb, var(--accent) 60%, transparent); }
+.store-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.store-btn__logo { width: 26px; height: 26px; flex: none; }
+.store-btn__text { display: flex; flex-direction: column; line-height: 1.1; }
+.store-btn__text small { font-size: .66rem; letter-spacing: .02em; opacity: .85; }
+.store-btn__text strong { font-size: 1.12rem; font-weight: 600; letter-spacing: -.01em; }
+@media (max-width: 420px) { .store-btn { flex: 1 1 100%; justify-content: center; } }

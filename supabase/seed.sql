@@ -75,31 +75,31 @@ select g.id, s.name, s.ord - 1 from public.skill_groups g,
   unnest(array['Android Studio', 'Xcode', 'Flutter DevTools', 'Git & GitHub', 'pub.dev Packages', 'Dart CLI Tools', 'Bash Scripting']::text[]) with ordinality as s(name, ord)
 where g.title = 'Tools & Open Source';
 
-insert into public.projects (slug, title, badge, icon, category, summary, highlights, tags, position) values
+insert into public.projects (slug, title, badge, icon, category, summary, highlights, tags, app_store_url, play_store_url, position) values
   ('kiibank', 'KiiBank — Mobile Banking', 'FinTech', '🏦', 'mobile', 'Cross-platform banking app with OAuth2 authentication, real-time transfers over REST, and responsive dashboards.',
    array['Built in Flutter and Dart with OAuth2 authentication and real-time transfers through RESTful APIs.', 'BLoC state management with responsive dashboards.', 'Unit, widget and integration tests to keep production quality high and make debugging easier.', 'Fastlane and Firebase App Distribution automate CI/CD and deploy releases to Google Play and the App Store.']::text[],
-   array['Flutter', 'BLoC', 'OAuth2', 'REST', 'Fastlane']::text[], 0),
+   array['Flutter', 'BLoC', 'OAuth2', 'REST', 'Fastlane']::text[], null, null, 0),
   ('kmag', 'KMAG — Magazine App', 'Media', '📰', 'mobile', 'Flutter magazine app using Firestore as a CMS, with Riverpod, push notifications and offline reading.',
    array['Firebase Firestore acts as the content management system.', 'Riverpod state management, push notifications and offline reading support.', 'GitHub Actions and Fastlane publish builds to Firebase App Distribution, the App Store and Google Play.', 'Integration tests validate content sync across iOS and Android.']::text[],
-   array['Flutter', 'Riverpod', 'Firestore', 'GitHub Actions']::text[], 1),
+   array['Flutter', 'Riverpod', 'Firestore', 'GitHub Actions']::text[], null, null, 1),
   ('trueme', 'TrueMe — Meditation & Audio', 'Wellness', '🎧', 'mobile', 'Audio playback, playlist management and background listening, tuned for low memory use on iOS and Android.',
    array['Audio playback, playlist management and background listening built with Flutter.', 'Optimized for low memory usage and smooth performance across iOS and Android.']::text[],
-   array['Flutter', 'Audio', 'Performance']::text[], 2),
+   array['Flutter', 'Audio', 'Performance']::text[], null, null, 2),
   ('ai-resume-tailoring', 'AI Resume Tailoring System', 'AI / NLP', '🧠', 'backend', 'Python FastAPI microservices on PostgreSQL that use TF-IDF and BERT to tailor resumes to job descriptions.',
    array['Python FastAPI microservices backed by PostgreSQL.', 'Data-processing pipelines using TF-IDF and BERT.', 'All services containerized with Docker.']::text[],
-   array['FastAPI', 'PostgreSQL', 'BERT', 'Docker']::text[], 3),
+   array['FastAPI', 'PostgreSQL', 'BERT', 'Docker']::text[], null, null, 3),
   ('olympic-medal-predictor', 'Olympic Medal Predictor', 'ML', '🏅', 'backend', 'End-to-end Python ETL, a trained machine-learning model, and a Tkinter GUI for medal predictions.',
    array['End-to-end ETL pipelines in Python and Pandas for extraction, cleaning and transformation.', 'Trained a machine-learning model on the prepared data.', 'Tkinter GUI for making medal predictions.']::text[],
-   array['Python', 'Pandas', 'Scikit-learn', 'Tkinter']::text[], 4),
+   array['Python', 'Pandas', 'Scikit-learn', 'Tkinter']::text[], null, null, 4),
   ('pill-tracking-system', 'Pill Tracking System', 'Health', '💊', 'backend', 'REST backend with secure authentication and Dockerized services for tracking medication.',
    array['Designed the REST backend.', 'Dockerized services.', 'Secure authentication.']::text[],
-   array['REST', 'Auth', 'Docker']::text[], 5),
+   array['REST', 'Auth', 'Docker']::text[], null, null, 5),
   ('remove-print-cli', 'Remove Print CLI', 'Open Source', '🧹', 'oss', 'Dart CLI on pub.dev that finds and removes debug print/log statements from Flutter codebases.',
    array['Published on pub.dev with documentation and versioning.', 'Detects and removes debug print and log statements from Flutter codebases before release.']::text[],
-   array['Dart', 'CLI', 'pub.dev']::text[], 6),
+   array['Dart', 'CLI', 'pub.dev']::text[], null, null, 6),
   ('flutter-monorepo-script', 'Flutter Monorepo Setup Script', 'Tooling', '🧱', 'oss', 'Bash + Melos script that scaffolds a production-ready Flutter monorepo in one command.',
    array['Scaffolds a production-ready Flutter monorepo with shared packages.', 'Consistent tooling across packages through Melos.']::text[],
-   array['Bash', 'Melos', 'Flutter']::text[], 7);
+   array['Bash', 'Melos', 'Flutter']::text[], null, null, 7);
 
 insert into public.experiences (role, company, subtitle, start_date, end_date, location, points, tags, independent, position) values
   ('Software Engineer', 'Independent Projects', 'Alongside M.S. in Computer Science, Troy University', '2025-01-01', null, 'Troy, Alabama, USA',
