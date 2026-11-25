@@ -369,3 +369,30 @@
 .adm-flash__close { background: none; border: 0; color: inherit; font-size: 1.2rem; line-height: 1; cursor: pointer; opacity: .6; padding: 0 2px; }
 .adm-flash__close:hover { opacity: 1; }
 .adm-flash__timer { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: currentColor; opacity: .35; transform-origin: left; }
+
+/* ===== Import a post from a file ===== */
+.adm-import { display: flex; flex-direction: column; gap: 8px; }
+.adm-import__drop {
+  display: flex; align-items: center; gap: 16px; padding: 18px 20px; border-radius: 14px; cursor: pointer;
+  border: 1.5px dashed var(--border); background: color-mix(in srgb, var(--accent) 4%, var(--surface));
+  transition: border-color .2s, background-color .2s;
+}
+.adm-import__drop:hover, .adm-import__drop:focus-visible, .adm-import__drop.is-over {
+  outline: none; border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+}
+.adm-import__drop.is-busy { cursor: progress; opacity: .7; }
+.adm-import__icon { font-size: 1.9rem; display: inline-block; }
+.adm-import__text { display: flex; flex-direction: column; gap: 3px; }
+.adm-import__text strong { font-size: .95rem; }
+.adm-import__foot { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; min-height: 22px; }
+.adm-import__status { margin: 0; font-size: .84rem; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.adm-import__status.is-done { color: #16a34a; }
+.adm-import__status.is-error { color: #ef4444; }
+.adm-import__status.is-reading { color: var(--muted); }
+.adm-import__chips { display: inline-flex; flex-wrap: wrap; gap: 4px; }
+.adm-import__chips em { font-style: normal; font-size: .72rem; padding: 2px 8px; border-radius: 999px; background: rgba(34, 197, 94, .12); }
+.adm-import__tpl { margin-left: auto; background: none; border: 0; padding: 0; cursor: pointer; font: 600 .8rem "Inter", sans-serif; color: var(--accent); }
+.adm-import__tpl:hover { text-decoration: underline; }
+/* Fields that were just filled glow briefly */
+.adm-field.adm-filled input, .adm-field.adm-filled textarea, .adm-field.adm-filled .adm-md { animation: adm-filled 1.6s ease-out; }
+@keyframes adm-filled { 0% { box-shadow: 0 0 0 4px color-mix(in srgb, #22c55e 45%, transparent); border-color: #22c55e; } 100% { box-shadow: 0 0 0 0 transparent; } }

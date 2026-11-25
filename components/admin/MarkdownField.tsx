@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { LayoutGroup, motion } from 'framer-motion';
 import Markdown from '@/components/Markdown';
 import { readingMinutes } from '@/lib/blog-shared';
@@ -26,6 +26,14 @@ export default function MarkdownField({ id, name, defaultValue, invalid, describ
   const [text, setText] = useState(defaultValue);
   const [tab, setTab] = useState<'write' | 'preview'>('write');
   const ta = useRef<HTMLTextAreaElement>(null);
+  // Lets the importer replace the text (this textarea is controlled by React state)
+  useEffect(() => {
+    const el = ta.current;
+    if (!el) return;
+    const onSet = (e: Event) => { setText(String((e as CustomEvent).detail ?? '')); setTab('write'); };
+    el.addEventListener('adm:set', onSet);
+    return () => el.removeEventListener('adm:set', onSet);
+  }, []);
   const words = (text.match(/[\p{L}\p{N}'’-]+/gu) ?? []).length;
 
   const apply = (before: string, after: string, placeholder: string, lineStart?: boolean) => {

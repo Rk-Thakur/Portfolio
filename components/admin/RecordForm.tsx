@@ -4,6 +4,7 @@ import { startTransition, useActionState, useEffect, useRef, useState } from 're
 import type { Field, FormState } from '@/lib/admin/config';
 import MarkdownField from './MarkdownField';
 import Flash from './Flash';
+import ImportPost from './ImportPost';
 
 type Props = {
   fields: Field[];
@@ -115,6 +116,7 @@ export default function RecordForm({ fields, values, action, submitLabel, projec
           ? <Flash key={nonce} message={state.message} />
           : <p className="adm-alert adm-alert--error" role="alert">{state.message}</p>)}
       </div>
+      {fields.some((f) => f.type === 'markdown') && <ImportPost />}
       {fields.map(render)}
       <div className="adm-actions adm-wide">
         <button className="adm-btn adm-btn--primary" disabled={pending}>{pending ? 'Saving…' : submitLabel}</button>
