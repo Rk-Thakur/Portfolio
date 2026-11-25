@@ -1129,7 +1129,7 @@ body::after {
 }
 @keyframes blog-ping { to { transform: scale(3); opacity: 0; } }
 .blog-hero__title { max-width: 13ch; }
-.blog-hero__ink { position: relative; }
+.blog-hero__ink { position: relative; display: inline-block; vertical-align: top; }
 .blog-hero__scribble { position: absolute; left: -2%; right: -2%; bottom: -.12em; width: 104%; height: .28em; color: var(--accent); opacity: .75; overflow: visible; }
 
 /* Floating emoji cloud */
@@ -1141,16 +1141,12 @@ body::after {
 
 /* Stats chips */
 .blog-stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
-.blog-stats li, .blog-stats a {
+.blog-stats li {
   display: inline-flex; align-items: baseline; gap: 6px; padding: 8px 14px; border-radius: 999px; font-size: .86rem;
   background: color-mix(in srgb, var(--surface) 80%, transparent); border: 1px solid var(--border); color: var(--muted);
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
 }
 .blog-stats b { color: var(--text); font-size: 1rem; font-variant-numeric: tabular-nums; }
-.blog-stats__rss { padding: 0 !important; border: 0 !important; background: none !important; }
-.blog-stats__rss a { align-items: center; font-weight: 600; transition: color .2s, border-color .2s; }
-.blog-stats__rss svg { width: 13px; height: 13px; color: #f97316; }
-.blog-stats__rss a:hover { color: var(--text); border-color: color-mix(in srgb, #f97316 50%, var(--border)); }
 
 .blog-wrap { padding-top: 48px; }
 

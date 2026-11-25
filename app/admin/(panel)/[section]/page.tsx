@@ -5,6 +5,7 @@ import { SECTIONS, isSectionKey, plural } from '@/lib/admin/config';
 import { deleteRecord, moveRecord, togglePublished } from '../../actions';
 import ConfirmButton from '@/components/admin/ConfirmButton';
 import SortableList from '@/components/admin/SortableList';
+import Flash from '@/components/admin/Flash';
 
 export default async function SectionList({
   params, searchParams,
@@ -34,8 +35,8 @@ export default async function SectionList({
         <Link href={`/admin/${key}/new/`} className="adm-btn adm-btn--primary">+ Add {section.singular}</Link>
       </header>
 
-      {sp.saved && <p className="adm-alert adm-alert--ok" role="status">Saved. The live site is updated.</p>}
-      {sp.deleted && <p className="adm-alert adm-alert--ok" role="status">Deleted.</p>}
+      {sp.saved && <Flash key={`s-${sp.saved}`} param="saved" message="Saved. The live site is updated." />}
+      {sp.deleted && <Flash key={`d-${sp.deleted}`} param="deleted" message="Deleted." />}
       {error && <p className="adm-alert adm-alert--error">Couldn’t load: {error.message}</p>}
 
       {section.draggable ? (

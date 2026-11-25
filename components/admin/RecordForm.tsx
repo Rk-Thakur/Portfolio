@@ -1,8 +1,9 @@
 'use client';
 import Link from 'next/link';
-import { startTransition, useActionState, useEffect, useRef } from 'react';
+import { startTransition, useActionState, useEffect, useRef, useState } from 'react';
 import type { Field, FormState } from '@/lib/admin/config';
 import MarkdownField from './MarkdownField';
+import Flash from './Flash';
 
 type Props = {
   fields: Field[];
@@ -20,6 +21,9 @@ export default function RecordForm({ fields, values, action, submitLabel, projec
   const [state, formAction, pending] = useActionState<FormState, FormData>(action, { ok: false });
   const top = useRef<HTMLDivElement>(null);
   const errors = state.errors ?? {};
+  // New key per result, so saving twice shows the message again
+  const [nonce, setNonce] = useState(0);
+  useEffect(() => { setNonce((n) => n + 1); }, [state]);
 
   useEffect(() => {
     if (state.message) top.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -107,9 +111,9 @@ export default function RecordForm({ fields, values, action, submitLabel, projec
       }}
     >
       <div ref={top} className="adm-wide">
-        {state.message && (
-          <p className={`adm-alert ${state.ok ? 'adm-alert--ok' : 'adm-alert--error'}`} role={state.ok ? 'status' : 'alert'}>{state.message}</p>
-        )}
+        {state.message && (state.ok
+          ? <Flash key={nonce} message={state.message} />
+          : <p className="adm-alert adm-alert--error" role="alert">{state.message}</p>)}
       </div>
       {fields.map(render)}
       <div className="adm-actions adm-wide">

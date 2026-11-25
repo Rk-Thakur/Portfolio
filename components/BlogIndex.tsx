@@ -109,14 +109,21 @@ export default function BlogIndex({ posts }: { posts: PostSummary[] }) {
           </motion.p>
 
           <h1 className="case__title cx-title blog-hero__title" aria-label={WORDS.join(' ')}>
-            {WORDS.map((w, i) => (
-              <span className={`w${w === 'apps' ? ' blog-hero__ink' : ''}`} key={i} aria-hidden="true">
-                <motion.span
-                  className={w === 'apps' ? 'cx-dash' : undefined}
-                  initial={{ y: '110%', rotate: 6 }} animate={{ y: '0%', rotate: 0 }}
-                  transition={{ duration: 0.9, ease: [0.2, 0.9, 0.25, 1], delay: 0.15 + i * 0.08 }}
-                >{w}</motion.span>
-                {w === 'apps' && (
+            {WORDS.map((w, i) => {
+              const word = (
+                <span className="w" key={i} aria-hidden="true">
+                  <motion.span
+                    className={w === 'apps' ? 'cx-dash' : undefined}
+                    initial={{ y: '110%', rotate: 6 }} animate={{ y: '0%', rotate: 0 }}
+                    transition={{ duration: 0.9, ease: [0.2, 0.9, 0.25, 1], delay: 0.15 + i * 0.08 }}
+                  >{w}</motion.span>
+                </span>
+              );
+              if (w !== 'apps') return word;
+              // The underline sits outside the word's clipping box so it isn't cut off
+              return (
+                <span className="blog-hero__ink" key={i} aria-hidden="true">
+                  {word}
                   <svg className="blog-hero__scribble" viewBox="0 0 200 24" preserveAspectRatio="none">
                     <motion.path
                       d="M3 15 C 40 5, 80 5, 110 12 S 170 22, 197 8"
@@ -125,9 +132,9 @@ export default function BlogIndex({ posts }: { posts: PostSummary[] }) {
                       transition={{ duration: 0.9, ease: 'easeInOut', delay: 0.95 }}
                     />
                   </svg>
-                )}
-              </span>
-            ))}
+                </span>
+              );
+            })}
           </h1>
 
           <motion.p className="case__summary cx-summary" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease, delay: 0.45 }}>
@@ -147,12 +154,6 @@ export default function BlogIndex({ posts }: { posts: PostSummary[] }) {
                 <Count to={s.n} /> <span>{s.label}</span>
               </motion.li>
             ))}
-            <motion.li variants={{ hidden: { opacity: 0, y: 14, scale: 0.9 }, show: { opacity: 1, y: 0, scale: 1 } }} className="blog-stats__rss">
-              <a href="/rss.xml">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3a16 16 0 0 1 16 16h-3A13 13 0 0 0 5 6zm0 6a10 10 0 0 1 10 10h-3a7 7 0 0 0-7-7zm1.5 7a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z" /></svg>
-                RSS
-              </a>
-            </motion.li>
           </motion.ul>
         </div>
       </section>
