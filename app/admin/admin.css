@@ -307,3 +307,37 @@
     background: var(--bg-alt); border-bottom: 1px solid var(--border); box-shadow: 0 20px 30px -24px rgba(0,0,0,.4);
   }
 }
+
+/* ===== Blog: list cover + Markdown editor ===== */
+.adm-row__cover {
+  width: 36px; height: 36px; display: grid; place-items: center; font-size: 1.2rem; border-radius: 10px;
+  background: var(--surface-2); border: 1px solid var(--border);
+}
+.adm-md { border: 1px solid var(--border); border-radius: 12px; background: var(--surface); overflow: hidden; }
+.adm-field.has-error .adm-md { border-color: #ef4444; }
+.adm-md:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent); }
+.adm-md__bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  padding: 8px; border-bottom: 1px solid var(--border); background: var(--surface-2);
+}
+.adm-md__tabs { display: flex; gap: 2px; padding: 3px; border-radius: 9px; background: var(--bg); }
+.adm-md__tabs button {
+  position: relative; padding: 6px 14px; border: 0; border-radius: 7px; background: none; cursor: pointer;
+  font: 600 .82rem "Inter", sans-serif; color: var(--muted);
+}
+.adm-md__tabs button span { position: relative; z-index: 1; }
+.adm-md__tabs button.is-active { color: var(--text); }
+.adm-md__pill { position: absolute; inset: 0; border-radius: 7px; background: var(--surface); box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+.adm-md__tools { display: flex; flex-wrap: wrap; gap: 4px; }
+.adm-md__tools button {
+  min-width: 30px; height: 30px; padding: 0 8px; border-radius: 7px; border: 1px solid transparent; background: none;
+  color: var(--muted); cursor: pointer; font: 700 .8rem "JetBrains Mono", monospace;
+}
+.adm-md__tools button:hover { color: var(--accent); border-color: var(--border); background: var(--surface); }
+.adm-field .adm-md__input {
+  display: block; border: 0; border-radius: 0; box-shadow: none !important; min-height: 420px; padding: 16px;
+  font: .9rem/1.7 "JetBrains Mono", monospace; background: var(--surface);
+}
+.adm-md__input[hidden] { display: none; }
+.adm-md__preview { padding: 20px 22px; min-height: 420px; max-height: 70vh; overflow: auto; }
+.adm-md__meta { padding: 8px 12px; border-top: 1px solid var(--border); margin: 0; }

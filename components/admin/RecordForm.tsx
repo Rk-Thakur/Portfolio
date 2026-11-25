@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { startTransition, useActionState, useEffect, useRef } from 'react';
 import type { Field, FormState } from '@/lib/admin/config';
+import MarkdownField from './MarkdownField';
 
 type Props = {
   fields: Field[];
@@ -32,6 +33,9 @@ export default function RecordForm({ fields, values, action, submitLabel, projec
 
     let control: React.ReactNode;
     switch (f.type) {
+      case 'markdown':
+        control = <MarkdownField id={id} name={f.key} defaultValue={String(v ?? '')} invalid={!!err} describedBy={common['aria-describedby']} />;
+        break;
       case 'textarea':
         control = <textarea {...common} rows={4} defaultValue={String(v ?? '')} required={f.required} />;
         break;

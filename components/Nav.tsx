@@ -15,13 +15,15 @@ const links = [
   { id: 'education', label: 'Education' },
 ];
 
-export default function Nav() {
+export default function Nav({ showBlog = false }: { showBlog?: boolean }) {
   const { profile } = usePortfolio();
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const isBlog = pathname.startsWith('/blog');
+  const pageActive = isBlog ? 'blog' : 'projects';
   const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
-  const [active, setActive] = useState<string | null>(isHome ? null : 'projects');
+  const [active, setActive] = useState<string | null>(isHome ? null : pageActive);
   const [paletteTick, setPaletteTick] = useState(0);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function Nav() {
 
   // Highlight the section in view (home page only)
   useEffect(() => {
-    if (!isHome) { setActive('projects'); return; }
+    if (!isHome) { setActive(pageActive); return; }
     setActive(null);
     const spy = new IntersectionObserver(
       (entries) => entries.forEach((en) => { if (en.isIntersecting) setActive(en.target.id); }),
@@ -43,7 +45,7 @@ export default function Nav() {
     );
     document.querySelectorAll('main section[id]').forEach((s) => spy.observe(s));
     return () => spy.disconnect();
-  }, [isHome]);
+  }, [isHome, pageActive]);
 
   useEffect(() => {
     if (!menu) return;
@@ -52,7 +54,8 @@ export default function Nav() {
     return () => window.removeEventListener('keydown', onKey);
   }, [menu]);
 
-  const href = (id: string) => (isHome ? `#${id}` : `/#${id}`);
+  const href = (id: string) => (id === 'blog' ? '/blog/' : isHome ? `#${id}` : `/#${id}`);
+  const items = showBlog ? [...links, { id: 'blog', label: 'Blog' }] : links;
 
   return (
     <header className={`nav${scrolled ? ' is-scrolled' : ''}`} id="top">
@@ -63,7 +66,7 @@ export default function Nav() {
         </Link>
         <nav aria-label="Primary">
           <ul className={`nav__links${menu ? ' is-open' : ''}`} id="navLinks" onClick={(e) => { if ((e.target as HTMLElement).closest('a')) setMenu(false); }}>
-            {links.map((l) => (
+            {items.map((l) => (
               <li key={l.id}>
                 <Link href={href(l.id)} className={active === l.id ? 'is-active' : ''}>
                   {l.label}

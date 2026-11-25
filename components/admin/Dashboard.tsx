@@ -17,6 +17,7 @@ const MotionLink = motion.create(Link);
 const ICONS: Record<SectionKey | 'profile', React.ReactNode> = {
   profile: <><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></>,
   projects: <><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></>,
+  blog: <><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" /></>,
   experience: <><rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18" /></>,
   skills: <><path d="m8 7-5 5 5 5M16 7l5 5-5 5" /></>,
   education: <><path d="m2 9 10-5 10 5-10 5z" /><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" /></>,
@@ -189,6 +190,7 @@ export default function Dashboard({ name, stats, drafts, totalSkills, recent }: 
       <motion.div className="dash-quick" variants={grid}>
         {[
           { href: '/admin/projects/new/', label: 'New project', icon: <span className="dash-plus">+</span>, primary: true },
+          { href: '/admin/blog/new/', label: 'Write a post', icon: <Icon name="blog" /> },
           { href: '/admin/profile/', label: 'Edit hero text', icon: <Icon name="profile" /> },
           { href: '/admin/experience/new/', label: 'Add experience', icon: <Icon name="experience" /> },
         ].map((a) => (

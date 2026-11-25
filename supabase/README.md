@@ -7,6 +7,8 @@ Everything the database needs is in this folder:
 | `migrations/20261115000001_schema.sql` | Creates the tables (profile, stats, strengths, skills, projects, experience, education, contact messages, admins) |
 | `migrations/20261115000002_security.sql` | Turns on Row Level Security, adds the access rules, and creates `get_portfolio()` |
 | `migrations/20261116000003_harden_privileges.sql` | Removes table permissions visitors don't need (second lock behind RLS) |
+| `migrations/20261120000005_store_links.sql` | Adds App Store / Google Play links to projects |
+| `migrations/20261125000006_blog_posts.sql` | Creates the `posts` table for the blog (drafts hidden from visitors) |
 | `seed.sql` | Fills the tables with the content currently on the site (generated — see below) |
 
 ## Access rules
@@ -27,7 +29,9 @@ non-admins change 0 rows, drafts are hidden from visitors, and invalid emails ar
    1. `migrations/20261115000001_schema.sql`
    2. `migrations/20261115000002_security.sql`
    3. `migrations/20261116000003_harden_privileges.sql`
-   4. `seed.sql`
+   4. `migrations/20261120000005_store_links.sql`
+   5. `migrations/20261125000006_blog_posts.sql`
+   6. `seed.sql`
 3. Check it worked — run:
    ```sql
    select public.get_portfolio();

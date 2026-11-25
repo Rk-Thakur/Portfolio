@@ -4,6 +4,7 @@
 export type FieldType =
   | 'text' | 'textarea' | 'lines' | 'number' | 'date' | 'bool' | 'select' | 'slug'
   | 'url'        // optional https link; `hosts` limits which sites are accepted
+  | 'markdown'   // long Markdown text with a live preview (blog body)
   | 'skills'     // skill_groups: one skill per line, stored in the skills table
   | 'projects';  // experiences: checkboxes of linked case studies
 
@@ -22,16 +23,20 @@ export type Field = {
 
 export type Section = {
   key: SectionKey;
-  table: 'projects' | 'experiences' | 'skill_groups' | 'education' | 'stats' | 'strengths';
+  table: 'projects' | 'experiences' | 'skill_groups' | 'education' | 'stats' | 'strengths' | 'posts';
   label: string;        // plural, for the menu
   singular: string;
   titleField: string;   // shown in the list
   subtitle?: (row: Record<string, unknown>) => string;
   fields: Field[];
   publishable?: boolean;
+  /** List newest first by this date column instead of manual ↑ ↓ order. */
+  dateOrder?: string;
+  /** Public URL of a row, for a "View" link. */
+  publicPath?: (row: Record<string, unknown>) => string;
 };
 
-export type SectionKey = 'projects' | 'experience' | 'skills' | 'education' | 'stats' | 'strengths';
+export type SectionKey = 'projects' | 'blog' | 'experience' | 'skills' | 'education' | 'stats' | 'strengths';
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 /** "2025-01-01" → "Jan 2025" */
@@ -61,6 +66,22 @@ export const SECTIONS: Record<SectionKey, Section> = {
         placeholder: 'https://apps.apple.com/app/…', help: 'Optional. Shows an App Store button on the project page.' },
       { key: 'play_store_url', label: 'Google Play link', type: 'url', hosts: ['play.google.com'],
         placeholder: 'https://play.google.com/store/apps/details?id=…', help: 'Optional. Shows a Google Play button on the project page.' },
+    ],
+  },
+  blog: {
+    key: 'blog', table: 'posts', label: 'Blog', singular: 'post', titleField: 'title', publishable: true,
+    dateOrder: 'published_on',
+    subtitle: (r) => `${monthYear(r.published_on)} · /blog/${r.slug ?? ''}${(r.tags as string[] | undefined)?.length ? ` · ${(r.tags as string[]).join(', ')}` : ''}`,
+    publicPath: (r) => `/blog/${r.slug}/`,
+    fields: [
+      { key: 'title', label: 'Title', type: 'text', required: true, wide: true, placeholder: 'What I learned shipping a Flutter banking app' },
+      { key: 'slug', label: 'URL slug', type: 'slug', required: true, help: 'Lowercase words joined by dashes. Used in /blog/<slug>.' },
+      { key: 'cover', label: 'Cover (emoji)', type: 'text', required: true, placeholder: '✍️' },
+      { key: 'published_on', label: 'Date', type: 'date', required: true, help: 'Shown on the post. Newest posts appear first.' },
+      { key: 'published', label: 'Published (visible on the site)', type: 'bool' },
+      { key: 'excerpt', label: 'Excerpt (card text)', type: 'textarea', required: true, wide: true, help: 'One or two sentences shown on the blog list and in link previews.' },
+      { key: 'tags', label: 'Tags', type: 'lines', help: 'One per line, e.g. Flutter, iOS, Backend.' },
+      { key: 'body', label: 'Post', type: 'markdown', required: true, wide: true },
     ],
   },
   experience: {

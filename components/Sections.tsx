@@ -178,7 +178,7 @@ export function Education() {
   );
 }
 
-export function Contact() {
+export function Contact({ n = '06' }: { n?: string }) {
   const { profile } = usePortfolio();
   const [toast, setToast] = useState<string | null>(null);
   const copy = async () => {
@@ -190,7 +190,7 @@ export function Contact() {
     <section className="section contact" id="contact">
       <div className="container">
         <Reveal className="contact__card">
-          <SectionHead kicker="06 — Contact" title="Let's build something great together." className="contact__head" />
+          <SectionHead kicker={`${n} — Contact`} title="Let's build something great together." className="contact__head" />
           <p>I&apos;m open to full-time Software Engineer and Mobile Application Engineer roles. The fastest way to reach me is email.</p>
           <div className="contact__actions">
             <Magnetic className="btn btn--primary" href={`mailto:${profile.email}`}><span>{profile.email}</span></Magnetic>

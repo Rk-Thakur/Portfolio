@@ -15,7 +15,7 @@ const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 // Server-side client with the public key (RLS applies). Every request it makes
 // goes through Next's fetch cache, so pages are rebuilt at most every 5 minutes.
-const supabase =
+export const publicSupabase =
   url && key
     ? createClient(url, key, {
         auth: { persistSession: false, autoRefreshToken: false },
@@ -58,6 +58,7 @@ function normalize(d: Portfolio): Portfolio {
  * Wrapped in React cache() so layout + page share one call per render.
  */
 export const getPortfolio = cache(async (): Promise<Portfolio & { source: 'supabase' | 'fallback' }> => {
+  const supabase = publicSupabase;
   if (!supabase) return { ...staticPortfolio, source: 'fallback' };
   try {
     const { data, error } = await supabase.rpc('get_portfolio');

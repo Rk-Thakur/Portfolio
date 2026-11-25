@@ -5,6 +5,7 @@ import Dashboard, { type RecentEdit, type SectionStat } from '@/components/admin
 // Tables with an updated_at column, and which field names the row
 const RECENT_SOURCES: { section: SectionKey; table: string; title: string }[] = [
   { section: 'projects', table: 'projects', title: 'title' },
+  { section: 'blog', table: 'posts', title: 'title' },
   { section: 'experience', table: 'experiences', title: 'role' },
   { section: 'skills', table: 'skill_groups', title: 'title' },
   { section: 'education', table: 'education', title: 'degree' },

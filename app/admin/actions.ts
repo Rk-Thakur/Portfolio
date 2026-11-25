@@ -99,7 +99,7 @@ function parse(fields: Field[], formData: FormData) {
 }
 
 function dbError(error: { code?: string; message: string }): FormState {
-  if (error.code === '23505') return { ok: false, message: 'That value is already used (for projects, the slug must be unique).', errors: { slug: 'Already used by another project.' } };
+  if (error.code === '23505') return { ok: false, message: 'That value is already used (the URL slug must be unique).', errors: { slug: 'Already used — pick another slug.' } };
   if (error.code === '23514') return { ok: false, message: 'One of the values isn’t allowed (for example, the end date is before the start date).' };
   if (error.code === '42501') return { ok: false, message: 'You don’t have permission to change this.' };
   return { ok: false, message: `Couldn’t save: ${error.message}` };
@@ -185,11 +185,12 @@ export async function moveRecord(sectionKey: string, id: string, dir: 'up' | 'do
   revalidatePath(`/admin/${sectionKey}/`);
 }
 
-export async function togglePublished(id: string, published: boolean) {
+export async function togglePublished(sectionKey: string, id: string, published: boolean) {
+  if (!isSectionKey(sectionKey) || !SECTIONS[sectionKey].publishable) return;
   const supabase = await requireAdmin();
-  await supabase.from('projects').update({ published }).eq('id', id);
+  await supabase.from(SECTIONS[sectionKey].table).update({ published }).eq('id', id);
   refreshSite();
-  revalidatePath('/admin/projects/');
+  revalidatePath(`/admin/${sectionKey}/`);
 }
 
 // ---------------------------------------------------------------------------

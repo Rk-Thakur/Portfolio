@@ -15,7 +15,11 @@ export default async function EditRecord({ params }: { params: Promise<{ section
   if (!isNew && !/^\d+$/.test(id)) notFound();
 
   const supabase = await createUserClient();
-  let values: Record<string, unknown> = section.table === 'projects' ? { published: true } : section.table === 'stats' ? { decimals: 0 } : {};
+  let values: Record<string, unknown> =
+    section.table === 'projects' ? { published: true }
+    : section.table === 'stats' ? { decimals: 0 }
+    : section.table === 'posts' ? { published: false, cover: '✍️', published_on: new Date().toISOString().slice(0, 10) }
+    : {};
 
   if (!isNew) {
     const { data } = await supabase.from(section.table).select('*').eq('id', id).maybeSingle();
