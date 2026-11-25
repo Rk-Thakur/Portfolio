@@ -122,8 +122,13 @@ export async function saveRecord(sectionKey: string, id: string, _prev: FormStat
 
   let recordId = id;
   if (id === 'new') {
-    const { data: last } = await supabase.from(section.table).select('position').order('position', { ascending: false }).limit(1);
-    row.position = ((last?.[0]?.position as number | undefined) ?? -1) + 1;
+    if (section.newFirst) {
+      const { data: first } = await supabase.from(section.table).select('position').order('position', { ascending: true }).limit(1);
+      row.position = ((first?.[0]?.position as number | undefined) ?? 1) - 1;
+    } else {
+      const { data: last } = await supabase.from(section.table).select('position').order('position', { ascending: false }).limit(1);
+      row.position = ((last?.[0]?.position as number | undefined) ?? -1) + 1;
+    }
     const { data, error } = await supabase.from(section.table).insert(row).select('id').single();
     if (error) return dbError(error);
     recordId = String(data.id);
@@ -183,6 +188,27 @@ export async function moveRecord(sectionKey: string, id: string, dir: 'up' | 'do
   await Promise.all(ids.map((rid, pos) => supabase.from(table).update({ position: pos }).eq('id', rid)));
   refreshSite();
   revalidatePath(`/admin/${sectionKey}/`);
+}
+
+/** Save a full new order (from drag and drop). `ids` must be every row of the table, top to bottom. */
+export async function reorderRecords(sectionKey: string, ids: string[]): Promise<{ ok: boolean; message?: string }> {
+  if (!isSectionKey(sectionKey) || !SECTIONS[sectionKey].draggable) return { ok: false, message: 'Unknown section.' };
+  let supabase;
+  try { supabase = await requireAdmin(); } catch { return { ok: false, message: 'Your session expired. Please sign in again.' }; }
+  const table = SECTIONS[sectionKey].table;
+  const { data, error } = await supabase.from(table).select('id');
+  if (error) return { ok: false, message: error.message };
+  const existing = new Set((data ?? []).map((r) => String(r.id)));
+  const unique = new Set(ids);
+  if (unique.size !== ids.length || ids.length !== existing.size || ids.some((id) => !existing.has(id))) {
+    return { ok: false, message: 'The list changed somewhere else. Reload the page and try again.' };
+  }
+  const results = await Promise.all(ids.map((id, pos) => supabase.from(table).update({ position: pos }).eq('id', id)));
+  const failed = results.find((r) => r.error);
+  if (failed?.error) return { ok: false, message: failed.error.message };
+  refreshSite();
+  revalidatePath(`/admin/${sectionKey}/`);
+  return { ok: true };
 }
 
 export async function togglePublished(sectionKey: string, id: string, published: boolean) {

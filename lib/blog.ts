@@ -14,7 +14,7 @@ const toSummary = (r: Row): PostSummary => ({
 });
 
 /**
- * Published posts, newest first. RLS hides drafts from the public key.
+ * Published posts in the order set in /admin (drag and drop); same-position posts newest first. RLS hides drafts from the public key.
  * Uses the same 5-minute cache + 'portfolio' tag as the rest of the site,
  * so saving in /admin refreshes the blog immediately.
  * Returns [] if Supabase is unreachable (the blog then shows an empty state).
@@ -26,6 +26,7 @@ export const getPosts = cache(async (): Promise<PostSummary[]> => {
       .from('posts')
       .select('slug, title, excerpt, cover, tags, body, published_on, updated_at')
       .eq('published', true)
+      .order('position', { ascending: true })
       .order('published_on', { ascending: false })
       .order('id', { ascending: false });
     if (error) throw error;

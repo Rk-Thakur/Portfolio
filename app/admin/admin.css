@@ -341,3 +341,25 @@
 .adm-md__input[hidden] { display: none; }
 .adm-md__preview { padding: 20px 22px; min-height: 420px; max-height: 70vh; overflow: auto; }
 .adm-md__meta { padding: 8px 12px; border-top: 1px solid var(--border); margin: 0; }
+
+/* ===== Drag-and-drop list ===== */
+.adm-sort__status { min-height: 30px; margin: -6px 0 8px; }
+.adm-sort__badge {
+  display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 999px; font-size: .8rem; font-weight: 600;
+  border: 1px solid var(--border); background: var(--surface); color: var(--muted);
+}
+.adm-sort__badge.is-saved { color: #16a34a; border-color: color-mix(in srgb, #22c55e 45%, transparent); background: rgba(34, 197, 94, .1); }
+.adm-sort__badge.is-error { color: #ef4444; border-color: color-mix(in srgb, #ef4444 45%, transparent); background: rgba(239, 68, 68, .08); }
+.adm-sort { position: relative; }
+.adm-sort__row { position: relative; background: var(--surface); }
+.adm-sort__row.is-dragging { border-color: var(--accent); }
+.adm-sort__lead { display: flex; align-items: center; gap: 10px; }
+.adm-sort__handle {
+  display: grid; place-items: center; width: 26px; height: 36px; border-radius: 8px; border: 1px solid transparent;
+  background: none; color: var(--muted); cursor: grab; touch-action: none; padding: 0;
+}
+.adm-sort__handle svg { width: 10px; height: 18px; }
+.adm-sort__handle:hover, .adm-sort__handle:focus-visible { color: var(--accent); border-color: var(--border); background: var(--surface-2); outline: none; }
+.adm-sort__row.is-dragging .adm-sort__handle { cursor: grabbing; color: var(--accent); }
+.adm-sort__num { font: 600 .74rem "JetBrains Mono", monospace; color: var(--muted); min-width: 18px; }
+@media (max-width: 560px) { .adm-sort__num { display: none; } }

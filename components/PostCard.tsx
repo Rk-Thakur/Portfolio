@@ -16,7 +16,7 @@ export default function PostCard({ post: p, delay = 0, featured = false, layout 
         <span className="post-card__cover" aria-hidden="true">{p.cover}</span>
         <span className="post-card__meta"><time dateTime={p.date}>{formatDate(p.date)}</time> · {p.minutes} min read</span>
       </div>
-      {featured && <span className="post-card__badge">Latest</span>}
+      {featured && <span className="post-card__badge">Featured</span>}
       <h3>{p.title}</h3>
       <p>{p.excerpt}</p>
       {p.tags.length > 0 && <ul className="tags">{p.tags.map((t) => <li key={t}>{t}</li>)}</ul>}

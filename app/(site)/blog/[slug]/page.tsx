@@ -32,10 +32,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const [post, posts] = await Promise.all([getPost(slug), getPosts()]);
   if (!post) notFound();
   const i = posts.findIndex((p) => p.slug === slug);
-  const newer = i > 0 ? posts[i - 1] : null;
-  const older = i >= 0 && i < posts.length - 1 ? posts[i + 1] : null;
+  // Follows the order set in /admin
+  const prev = i > 0 ? posts[i - 1] : null;
+  const next = i >= 0 && i < posts.length - 1 ? posts[i + 1] : null;
   return (
-    <PostView post={post} toc={tableOfContents(post.body)} newer={newer} older={older}>
+    <PostView post={post} toc={tableOfContents(post.body)} prev={prev} next={next}>
       <Markdown source={post.body} />
     </PostView>
   );

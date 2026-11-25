@@ -9,7 +9,9 @@ const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 export async function GET(request: Request) {
   const origin = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || new URL(request.url).origin;
   const [posts, { profile }] = await Promise.all([getPosts(), getPortfolio()]);
-  const items = posts.map((p) => `
+  // Feed readers expect newest first, whatever order the site uses
+  const byDate = [...posts].sort((a, b) => b.date.localeCompare(a.date));
+  const items = byDate.map((p) => `
     <item>
       <title>${esc(p.title)}</title>
       <link>${origin}/blog/${p.slug}/</link>

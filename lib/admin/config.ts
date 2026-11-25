@@ -30,7 +30,11 @@ export type Section = {
   subtitle?: (row: Record<string, unknown>) => string;
   fields: Field[];
   publishable?: boolean;
-  /** List newest first by this date column instead of manual ↑ ↓ order. */
+  /** Reorder by drag and drop (the site shows the same order). */
+  draggable?: boolean;
+  /** New items go to the top of the list instead of the bottom. */
+  newFirst?: boolean;
+  /** Tie-breaker (newest first) for rows with the same position. */
   dateOrder?: string;
   /** Public URL of a row, for a "View" link. */
   publicPath?: (row: Record<string, unknown>) => string;
@@ -70,7 +74,7 @@ export const SECTIONS: Record<SectionKey, Section> = {
   },
   blog: {
     key: 'blog', table: 'posts', label: 'Blog', singular: 'post', titleField: 'title', publishable: true,
-    dateOrder: 'published_on',
+    draggable: true, newFirst: true, dateOrder: 'published_on',
     subtitle: (r) => `${monthYear(r.published_on)} · /blog/${r.slug ?? ''}${(r.tags as string[] | undefined)?.length ? ` · ${(r.tags as string[]).join(', ')}` : ''}`,
     publicPath: (r) => `/blog/${r.slug}/`,
     fields: [

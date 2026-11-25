@@ -8,8 +8,8 @@ import { ease } from '@/lib/motion';
 
 const MotionLink = motion.create(Link);
 
-export default function PostView({ post: p, toc, newer, older, children }: {
-  post: Post; toc: TocItem[]; newer: PostSummary | null; older: PostSummary | null; children: React.ReactNode;
+export default function PostView({ post: p, toc, prev, next, children }: {
+  post: Post; toc: TocItem[]; prev: PostSummary | null; next: PostSummary | null; children: React.ReactNode;
 }) {
   const { profile } = usePortfolio();
   const words = p.title.split(' ');
@@ -165,16 +165,16 @@ export default function PostView({ post: p, toc, newer, older, children }: {
           </aside>
         </div>
 
-        {/* ===== Newer / older ===== */}
-        {(newer || older) && (
+        {/* ===== Previous / next (admin order) ===== */}
+        {(prev || next) && (
           <nav className="cx-pager" aria-label="More posts">
-            {[{ dir: 'Newer', proj: newer, cls: 'previous' }, { dir: 'Older', proj: older, cls: 'next' }].map(({ dir, proj, cls }) =>
+            {[{ dir: 'Previous', proj: prev, cls: 'previous' }, { dir: 'Next', proj: next, cls: 'next' }].map(({ dir, proj, cls }) =>
               proj ? (
                 <MotionLink key={dir} href={`/blog/${proj.slug}/`} className={`cx-pager__card cx-pager__card--${cls}`} initial="rest" whileHover="hover" animate="rest">
                   <span className="kicker">{dir} post</span>
                   <span className="cx-pager__row">
                     {(() => {
-                      const isOlder = dir === 'Older';
+                      const isOlder = dir === 'Next';
                       const arrow = (
                         <motion.span key="arrow" className="cx-pager__arrow" aria-hidden="true"
                           variants={{ rest: { x: 0 }, hover: { x: isOlder ? 8 : -8 } }}
