@@ -52,7 +52,9 @@ function parse(fields: Field[], formData: FormData) {
   const errors: Record<string, string> = {};
   for (const f of fields) {
     if (f.type === 'skills' || f.type === 'projects') continue; // handled separately
-    const raw = formData.get(f.key);
+    // Browsers submit textarea line breaks as \r\n; store plain \n
+    const rawValue = formData.get(f.key);
+    const raw = typeof rawValue === 'string' ? rawValue.replace(/\r\n?/g, '\n') : rawValue;
     switch (f.type) {
       case 'bool':
         row[f.key] = raw === 'on';
